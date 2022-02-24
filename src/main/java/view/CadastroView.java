@@ -19,12 +19,10 @@ public class CadastroView {
     }
 
     private void initComponents() {
-        cadastraButton.setBackground(UIManager.getDefaults().getColor("Button.default.background"));
         createListeners();
     }
 
     private void createListeners() {
-
         cadastraButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Contato contato = new Contato(nomeField.getText(), cpfField.getText(), telefoneField.getText());

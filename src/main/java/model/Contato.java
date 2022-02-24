@@ -4,6 +4,8 @@ import dao.ContatoDAO;
 import lombok.*;
 import utils.Valida;
 
+import java.util.List;
+
 /**
  * @author jean.franz
  */
@@ -13,14 +15,13 @@ import utils.Valida;
 public class Contato {
 
     private ContatoDAO dao;
-    private String nome, id, cpf, telefone;
+    private String nome, cpf, telefone;
 
     public Contato(String nome, String cpf, String telefone) {
         this.dao = new ContatoDAO();
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
-        dao.get(5);
     }
 
     public boolean cadastrarContato() {
@@ -35,7 +36,16 @@ public class Contato {
         return result;
     }
 
-    public String getContatoFormatado() {
+    public List<Contato> getContatos() {
+        return dao.getAll();
+    }
+
+    public String formatarContato() {
         return getNome() + "," + getCpf() + "," + getTelefone() + "\n";
+    }
+
+    public Contato getContatoFormatado(String contato) {
+        String[] c = contato.split(",");
+        return new Contato(c[0], c[1], c[2]);
     }
 }

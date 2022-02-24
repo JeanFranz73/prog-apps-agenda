@@ -6,31 +6,30 @@ import model.Contato;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ListaAgendaView {
-    @Getter private JPanel panelMain;
+    private ContatoDAO dao;
     private JTable tabelaContatos;
     private DefaultTableModel model;
 
+    @Getter
+    private JPanel panelMain;
+
     public ListaAgendaView() {
-
+        this.dao = new ContatoDAO();
         this.model = (DefaultTableModel) tabelaContatos.getModel();
-        model.addColumn("Teste");
-        model.addColumn("Teste2");
-        model.addColumn("Teste3");
 
-        tabelaContatos = new JTable(model);
+        criarTabela();
+
+        tabelaContatos.setModel(model);
 
     }
+
     public void criarTabela() {
         model.addColumn("ID");
         model.addColumn("Nome");
+        model.addColumn("CPF");
         model.addColumn("Telefone");
-        model.addColumn("Email");
-
         loadContatos();
     }
 
@@ -38,17 +37,16 @@ public class ListaAgendaView {
 
         model.setRowCount(0);
 
-        ContatoDAO dao = new ContatoDAO();
-        List<Contato> contatos = dao.getAll();
+        Object[] contato = new Object[4];
 
-        Object[] dadosTabela = new Object[4];
-
-        for (int i = 0; i < contatos.size(); i++) {
-            dadosTabela[0] = (i + 1);
-            dadosTabela[1] = contatos.get(i).getNome();
-            dadosTabela[2] = contatos.get(i).getTelefone();
-            dadosTabela[3] = contatos.get(i).getCpf();
-            model.addRow(dadosTabela);
+        int i = 0;
+        for (Contato c : dao.getAll()) {
+            contato[0] = (i + 1);
+            contato[1] = c.getNome();
+            contato[2] = c.getCpf();
+            contato[3] = c.getTelefone();
+            model.addRow(contato);
+            i++;
         }
     }
 }

@@ -1,11 +1,12 @@
 package view;
 
-import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import utils.FlatSVGIcon;
 
 import javax.swing.*;
+import javax.swing.plaf.TabbedPaneUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,6 +18,7 @@ public class ContatoView extends JFrame {
     private JMenuBar menu;
     private JMenu opcoesMenu;
     private JCheckBoxMenuItem modoEscuro;
+    private TabbedPaneUI paneui;
 
     public ContatoView() {
         changeTemaEscuro(true);
@@ -32,7 +34,6 @@ public class ContatoView extends JFrame {
 
         opcoesMenu = new JMenu("Opções");
         modoEscuro = new JCheckBoxMenuItem("Modo escuro", true);
-
 
         modoEscuro.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -57,14 +58,14 @@ public class ContatoView extends JFrame {
         setJMenuBar(menu);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setContentPane(this.pane);
-        setSize(500, 300);
+        setSize(600, 300);
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
-    private void changeTemaEscuro(boolean b) {
-        if (b) {
-            FlatDarculaLaf.setup();
+    private void changeTemaEscuro(boolean valor) {
+        if (valor) {
+            FlatDarkLaf.setup();
         } else {
             FlatLightLaf.setup();
         }

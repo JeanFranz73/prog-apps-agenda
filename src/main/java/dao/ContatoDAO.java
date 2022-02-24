@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -29,27 +30,30 @@ public class ContatoDAO implements Dao<Contato> {
 
     @Override
     public Contato get(long id) {
-        try {
-            FileReader leitor = new FileReader(arquivo.getName());
-            leitor.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return new Contato();
     }
 
     @Override
     public List<Contato> getAll() {
-        List<Contato> contatos = new ArrayList<Contato>();
-
+        List<Contato> contatos = new ArrayList();
+        try {
+            BufferedReader leitor = new BufferedReader(new FileReader(arquivo));
+            String contatoCSV;
+            while ((contatoCSV = leitor.readLine()) != null) {
+                contatos.add(new Contato().getContatoFormatado(contatoCSV));
+            }
+            leitor.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return contatos;
     }
 
     @Override
     public void save(Contato contato) {
         try {
-            FileWriter escritor = new FileWriter(arquivo.getName(), true);
-            escritor.write(contato.getContatoFormatado());
+            FileWriter escritor = new FileWriter(arquivo, true);
+            escritor.write(contato.formatarContato());
             escritor.close();
         } catch (Exception e) {
             e.printStackTrace();

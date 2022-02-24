@@ -9,7 +9,11 @@
         <outputRelativeToContentRoot value="true" />
         <module name="aula-1" />
         <module name="prog-apps-agenda" />
+        <module name="dev-apps" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="dev-apps" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
