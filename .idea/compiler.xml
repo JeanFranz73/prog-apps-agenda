@@ -13,7 +13,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="dev-apps" target="8" />
+      <module name="dev-apps" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
