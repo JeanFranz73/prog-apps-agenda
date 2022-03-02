@@ -45,7 +45,7 @@ public class EditarContatoView {
 
     public void updateCombo() {
         contatosBox.addItem(new ComboItem(null, null));
-        for (Contato c : ContatoDAO.getAll()) {
+        for (Contato c : dao.getAll()) {
             contatosBox.addItem(new ComboItem(c.getUser(), c.getUser()));
         }
     }

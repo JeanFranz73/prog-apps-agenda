@@ -14,9 +14,12 @@ import model.Contato;
  */
 public class ContatoDAO {
 
-    private static final File arquivo = new File(System.getProperty("user.dir") + "\\contatos.csv");
+    private final File arquivo;
 
     public ContatoDAO() {
+
+        String arquivoPath = (System.getProperty("user.dir") + "\\contatos.csv");
+        this.arquivo = new File(arquivoPath);
 
         try {
             if (arquivo.createNewFile())
@@ -43,7 +46,7 @@ public class ContatoDAO {
         return contato;
     }
 
-    public static List<Contato> getAll() {
+    public List<Contato> getAll() {
         List<Contato> contatos = new ArrayList();
         try {
             BufferedReader leitor = new BufferedReader(new FileReader(arquivo));
