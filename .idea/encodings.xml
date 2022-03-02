@@ -6,7 +6,8 @@
     <file url="file://$PROJECT_DIR$/src/main/java/dao/Dao.java" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/src/main/java/model/TelaCadastro.java" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/src/main/java/view/CadastroTeste.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/src/main/java/view/CadastroView.java" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/src/main/java/view/ContatoView.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/view/ListaAgendaView.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/view/MainView.java" charset="windows-1252" />
   </component>
 </project>

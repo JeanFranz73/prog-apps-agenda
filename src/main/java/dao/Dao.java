@@ -6,14 +6,9 @@ import java.util.*;
  * @author jean.franz
  */
 public interface Dao<T> {
-    
-    T get(long id);
-    
+    T get(String id);
     List<T> getAll();
-    
     void save(T t);
-    
-    void update(T t, String[] params);
-    
+    boolean update(String id, T t);
     void delete(T t);
 }

@@ -15,10 +15,11 @@ import java.util.List;
 public class Contato {
 
     private ContatoDAO dao;
-    private String nome, cpf, telefone;
+    private String user, nome, cpf, telefone;
 
-    public Contato(String nome, String cpf, String telefone) {
+    public Contato(String user, String nome, String cpf, String telefone) {
         this.dao = new ContatoDAO();
+        this.user = user;
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
@@ -41,11 +42,11 @@ public class Contato {
     }
 
     public String formatarContato() {
-        return getNome() + "," + getCpf() + "," + getTelefone() + "\n";
+        return getUser() + "," + getNome() + "," + getCpf() + "," + getTelefone() + "\n";
     }
 
     public Contato getContatoFormatado(String contato) {
         String[] c = contato.split(",");
-        return new Contato(c[0], c[1], c[2]);
+        return new Contato(c[0], c[1], c[2], c[3]);
     }
 }

@@ -1,74 +1,39 @@
 package view;
 
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLaf;
-import com.formdev.flatlaf.FlatLightLaf;
-import utils.FlatSVGIcon;
+import lombok.Getter;
+import model.Contato;
 
 import javax.swing.*;
-import javax.swing.plaf.TabbedPaneUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ContatoView extends JFrame {
-
-    private ListaAgendaView lista;
-    private CadastroView cadastro;
-    private JTabbedPane pane;
-    private JMenuBar menu;
-    private JMenu opcoesMenu;
-    private JCheckBoxMenuItem modoEscuro;
-    private TabbedPaneUI paneui;
+public class ContatoView {
+    private JTextField userField;
+    private JTextField nomeField;
+    private JTextField cpfField;
+    private JTextField telefoneField;
+    private JButton cadastraButton;
+    @Getter private JPanel panelMain;
 
     public ContatoView() {
-        changeTemaEscuro(true);
-        this.lista = new ListaAgendaView();
-        this.cadastro = new CadastroView();
-        this.pane = new JTabbedPane();
-        menu = new JMenuBar();
+
         initComponents();
-        initUI();
     }
 
     private void initComponents() {
+        createListeners();
+    }
 
-        opcoesMenu = new JMenu("Opções");
-        modoEscuro = new JCheckBoxMenuItem("Modo escuro", true);
-
-        modoEscuro.addActionListener(new ActionListener() {
+    private void createListeners() {
+        cadastraButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                changeTemaEscuro(modoEscuro.isSelected());
+                Contato contato = new Contato(userField.getText(), nomeField.getText(), cpfField.getText(), telefoneField.getText());
+
+                if (contato.cadastrarContato())
+                    JOptionPane.showMessageDialog(getPanelMain(), "Contato cadastrado com sucesso.", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+                else
+                    JOptionPane.showMessageDialog(getPanelMain(), "CPF inválido.", "Alerta", JOptionPane.ERROR_MESSAGE);
             }
         });
-
-        opcoesMenu.add(modoEscuro);
-
-        menu.add(opcoesMenu);
-
-        pane.addTab("Listar contatos", new FlatSVGIcon("icons/users.svg", 16, 16), lista.getPanelMain());
-        pane.addTab("Novo contato", new FlatSVGIcon("icons/user-plus.svg", 16, 16), cadastro.getPanelMain());
-    }
-
-    private void initUI() {
-        UIManager.put("TitlePane.menuBarEmbedded", true);
-
-        setIconImage(new FlatSVGIcon("icons/aperture.svg").getImage());
-
-        setTitle("Agenda");
-        setJMenuBar(menu);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setContentPane(this.pane);
-        setSize(600, 300);
-        setLocationRelativeTo(null);
-        setVisible(true);
-    }
-
-    private void changeTemaEscuro(boolean valor) {
-        if (valor) {
-            FlatDarkLaf.setup();
-        } else {
-            FlatLightLaf.setup();
-        }
-        FlatLaf.updateUI();
     }
 }

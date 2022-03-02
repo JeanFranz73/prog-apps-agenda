@@ -1,11 +1,11 @@
 
-import view.ContatoView;
+import view.MainView;
 
 /**
  * @author jean.franz
 */
 public class Main {
     public static void main(String[] args) {
-        ContatoView tela = new ContatoView();
+        MainView tela = new MainView();
     }
 }

@@ -12,13 +12,11 @@ import model.Contato;
 /**
  * @author jean.franz
  */
-public class ContatoDAO implements Dao<Contato> {
+public class ContatoDAO {
 
-    private final File arquivo;
+    private static final File arquivo = new File(System.getProperty("user.dir") + "\\contatos.csv");
 
     public ContatoDAO() {
-        String arquivoPath = (System.getProperty("user.dir") + "\\contatos.csv");
-        this.arquivo = new File(arquivoPath);
 
         try {
             if (arquivo.createNewFile())
@@ -28,19 +26,30 @@ public class ContatoDAO implements Dao<Contato> {
         }
     }
 
-    @Override
-    public Contato get(long id) {
+    public Contato get(String id) {
+        for (int i = 0; i < getAll().size(); i++) {
+
+        }
         return new Contato();
     }
 
-    @Override
-    public List<Contato> getAll() {
+    public Contato getContatoByUser(String user) {
+        Contato contato = new Contato();
+        for (Contato c : getAll()) {
+            if (c.getUser().equals(user)) {
+                contato = c;
+            }
+        }
+        return contato;
+    }
+
+    public static List<Contato> getAll() {
         List<Contato> contatos = new ArrayList();
         try {
             BufferedReader leitor = new BufferedReader(new FileReader(arquivo));
-            String contatoCSV;
-            while ((contatoCSV = leitor.readLine()) != null) {
-                contatos.add(new Contato().getContatoFormatado(contatoCSV));
+            String contatoAtual;
+            while ((contatoAtual = leitor.readLine()) != null) {
+                contatos.add(new Contato().getContatoFormatado(contatoAtual));
             }
             leitor.close();
         } catch (Exception e) {
@@ -49,7 +58,6 @@ public class ContatoDAO implements Dao<Contato> {
         return contatos;
     }
 
-    @Override
     public void save(Contato contato) {
         try {
             FileWriter escritor = new FileWriter(arquivo, true);
@@ -60,12 +68,70 @@ public class ContatoDAO implements Dao<Contato> {
         }
     }
 
-    // Próximas aulas, se precisar
-    @Override
-    public void update(Contato contato, String[] args) {
+    public boolean update(String linha, Contato contato) {
+        boolean result = false;
+        List<Contato> contatos = getAll();
+        try {
+            wipe();
+            FileWriter escritor = new FileWriter(arquivo, true);
+
+            contatos.set(Integer.parseInt(linha), contato);
+            result = true;
+
+            for (Contato c : contatos) {
+                escritor.write(c.formatarContato());
+            }
+            escritor.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
-    @Override
     public void delete(Contato contato) {
+        try {
+            FileWriter escritor = new FileWriter(arquivo);
+
+            for (Contato c : getAll()) {
+                if (!c.equals(contato)) {
+                    escritor.write(c.formatarContato());
+                }
+                escritor.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void delete(int linha) {
+
+        List<Contato> contatos = getAll();
+
+        try {
+            wipe();
+
+            FileWriter escritor = new FileWriter(arquivo, true);
+
+            contatos.remove(linha);
+
+            for (Contato c : contatos) {
+                escritor.write(c.formatarContato());
+            }
+
+            escritor.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void wipe() {
+        try {
+        FileWriter wipe = new FileWriter(arquivo, false);
+        wipe.write("");
+        wipe.close();
+        } catch (Exception e) {
+            System.out.println("Wipe falhou!");
+            e.printStackTrace();
+        }
     }
 }
