@@ -33,7 +33,6 @@ public class EditarContatoView {
         for (Contato c : dao.getAll()) {
             contatosBox.addItem(new ComboItem(c.getUser(), c.getUser()));
         }
-        updateValores();
     }
 
     public void updateValores() {
@@ -45,6 +44,7 @@ public class EditarContatoView {
     }
 
     public void updateCombo() {
+        contatosBox.addItem(new ComboItem(null, null));
         for (Contato c : ContatoDAO.getAll()) {
             contatosBox.addItem(new ComboItem(c.getUser(), c.getUser()));
         }
@@ -68,14 +68,14 @@ public class EditarContatoView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (Valida.validarCPF(cpfField.getText()))
-                    if (dao.update(Integer.toString(contatosBox.getSelectedIndex()), new Contato(userField.getText(), nomeField.getText(), cpfField.getText(), telefoneField.getText())))
+                    if (dao.update(Integer.toString(contatosBox.getSelectedIndex()), new Contato(userField.getText(), nomeField.getText(), cpfField.getText(), telefoneField.getText()))) {
+                        contatosBox.removeItem(contatosBox.getSelectedIndex());
                         JOptionPane.showMessageDialog(getPanelMain(), "Contato editado com sucesso.", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
-                    else
+                    } else
                         JOptionPane.showMessageDialog(getPanelMain(), "Houve um erro ao editar o contato.", "Alerta", JOptionPane.ERROR_MESSAGE);
                 else {
                     JOptionPane.showMessageDialog(getPanelMain(), "CPF inválido.", "Alerta", JOptionPane.ERROR_MESSAGE);
                 }
-                updateCombo();
             }
         });
     }
