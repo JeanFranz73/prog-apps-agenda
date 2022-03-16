@@ -1,15 +1,9 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.*;
 import java.util.Properties;
 
 public class DB {
-
-    public static void main(String[] args) {
-        new DB().connect();
-    }
-
     public Connection connect() {
         Connection connection = null;
         try {
@@ -17,10 +11,10 @@ public class DB {
             try {
                 prop.load(getClass().getClassLoader().getResourceAsStream("config.properties"));
 
-                Class.forName(prop.getProperty("dbDriver"));
                 connection = DriverManager.getConnection(prop.getProperty("dbUrl"), prop.getProperty("dbUser"), prop.getProperty("dbPass"));
+                System.out.println("Sucesso na conexão com o banco de dados!");
 
-                System.out.print("Conectado!");
+                Statement stm = connection.createStatement();
 
             } catch (Exception e) {
                 System.out.println("Erro na conexão do banco de dados");
