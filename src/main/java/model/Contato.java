@@ -1,6 +1,6 @@
 package model;
 
-import dao.ContatoDAO;
+import db.ContatoDAO;
 import lombok.*;
 import utils.Valida;
 

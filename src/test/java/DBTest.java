@@ -1,11 +1,12 @@
-import dao.DB;
+import db.DB;
+import utils.CargoEnum;
 
-import java.io.IOException;
 import java.sql.Connection;
 
 public class DBTest {
     public static void main(String[] args) throws Exception {
-        Connection conn = new DB().connect();
-        Main.main(args);
+        CargoEnum cargoEnum = CargoEnum.MEDICO;
+        System.out.println(cargoEnum.getId());
+        System.out.println(cargoEnum.getName());
     }
 }

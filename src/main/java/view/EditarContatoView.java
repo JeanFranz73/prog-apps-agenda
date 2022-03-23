@@ -1,6 +1,6 @@
 package view;
 
-import dao.ContatoDAO;
+import db.ContatoDAO;
 import lombok.Getter;
 import model.Contato;
 import utils.ComboItem;
@@ -20,8 +20,9 @@ public class EditarContatoView {
     private JComboBox contatosBox;
     private JButton atualizaButton;
     private ContatoDAO dao;
+
     @Getter
-    private JPanel panelMain;
+    private JPanel rootPanel;
 
     public EditarContatoView() {
         this.dao = new ContatoDAO();
@@ -70,11 +71,11 @@ public class EditarContatoView {
                 if (Valida.validarCPF(cpfField.getText()))
                     if (dao.update(Integer.toString(contatosBox.getSelectedIndex()), new Contato(userField.getText(), nomeField.getText(), cpfField.getText(), telefoneField.getText()))) {
                         contatosBox.removeItem(contatosBox.getSelectedIndex());
-                        JOptionPane.showMessageDialog(getPanelMain(), "Contato editado com sucesso.", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(getRootPanel(), "Contato editado com sucesso.", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
                     } else
-                        JOptionPane.showMessageDialog(getPanelMain(), "Houve um erro ao editar o contato.", "Alerta", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(getRootPanel(), "Houve um erro ao editar o contato.", "Alerta", JOptionPane.ERROR_MESSAGE);
                 else {
-                    JOptionPane.showMessageDialog(getPanelMain(), "CPF inválido.", "Alerta", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(getRootPanel(), "CPF inválido.", "Alerta", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

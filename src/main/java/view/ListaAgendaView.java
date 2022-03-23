@@ -1,6 +1,6 @@
 package view;
 
-import dao.ContatoDAO;
+import db.ContatoDAO;
 import lombok.Getter;
 import model.Contato;
 import utils.FlatSVGIcon;
@@ -19,7 +19,7 @@ public class ListaAgendaView {
     private JButton deletarButton;
 
     @Getter
-    private JPanel panelMain;
+    private JPanel rootPanel;
 
     public ListaAgendaView() {
 
@@ -34,11 +34,11 @@ public class ListaAgendaView {
         createListeners();
     }
 
-    public void initComponents() {
+    private void initComponents() {
         deletarButton.setIcon(new FlatSVGIcon("icons/user-x.svg", 14, 14));
     }
 
-    public void criarTabela() {
+    private void criarTabela() {
         model.addColumn("Usuário");
         model.addColumn("Nome");
         model.addColumn("CPF");
@@ -69,18 +69,18 @@ public class ListaAgendaView {
         }
     }
 
-    public void createListeners() {
+    private void createListeners() {
         deletarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!tabelaContatos.getSelectionModel().isSelectionEmpty()) {
-                    if (JOptionPane.showConfirmDialog(getPanelMain(), "Você tem certeza que deseja excluir este contato?", "Confirmar exclusão", JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
-                        JOptionPane.showMessageDialog(getPanelMain(), "Contato excluído com sucesso.", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+                    if (JOptionPane.showConfirmDialog(getRootPanel(), "Você tem certeza que deseja excluir este contato?", "Confirmar exclusão", JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
+                        JOptionPane.showMessageDialog(getRootPanel(), "Contato excluído com sucesso.", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
                         dao.delete(tabelaContatos.getSelectedRow());
                     }
                     loadContatos();
                 } else {
-                    JOptionPane.showMessageDialog(getPanelMain(), "Selecione um contato.", "Alerta", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(getRootPanel(), "Selecione um contato.", "Alerta", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
