@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * @author jean.franz
  */
-public interface DAO<T> {
+public interface DAOI<T> {
     T get(String id);
     void save(T t);
     boolean update(String id, T t);

@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Objects;
 
 public class EditarContatoView {
     private JTextField userField;
@@ -37,7 +38,7 @@ public class EditarContatoView {
     }
 
     public void updateValores() {
-        Contato c = dao.getContatoByUser(contatosBox.getSelectedItem().toString());
+        Contato c = dao.getContatoByUser(Objects.requireNonNull(contatosBox.getSelectedItem()).toString());
         userField.setText(c.getUser());
         nomeField.setText(c.getNome());
         cpfField.setText(c.getCpf());

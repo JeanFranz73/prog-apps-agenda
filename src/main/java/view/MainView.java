@@ -3,10 +3,6 @@ package view;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
-import com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme;
-import com.formdev.flatlaf.intellijthemes.FlatArcIJTheme;
-import com.formdev.flatlaf.intellijthemes.FlatArcOrangeIJTheme;
-import com.formdev.flatlaf.intellijthemes.FlatNordIJTheme;
 import utils.FlatSVGIcon;
 
 import javax.swing.*;
@@ -23,7 +19,7 @@ public class MainView extends JFrame {
     private JCheckBoxMenuItem modoEscuro;
 
     public MainView() {
-        changeTemaEscuro(true);
+        changeTemaEscuro(false);
         this.lista = new ListaAgendaView();
         this.cadastro = new ContatoView();
         this.edit = new EditarContatoView();
@@ -59,7 +55,7 @@ public class MainView extends JFrame {
     private void initUI() {
         setIconImage(new FlatSVGIcon("icons/aperture.svg").getImage());
 
-        setTitle("Agenda");
+        setTitle("Consultório Clínico");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(this.pane);
         setSize(1280, 720);
@@ -70,14 +66,14 @@ public class MainView extends JFrame {
     private void addMenu() {
         JMenuBar menu = new JMenuBar();
         JMenu opcoesMenu = new JMenu("Opções");
-        modoEscuro = new JCheckBoxMenuItem("Modo escuro", true);
+        modoEscuro = new JCheckBoxMenuItem("Modo escuro", false);
         opcoesMenu.add(modoEscuro);
         menu.add(opcoesMenu);
         setJMenuBar(menu);
     }
 
     private void changeTemaEscuro(boolean valor) {
-        if (valor) FlatNordIJTheme.setup();
+        if (valor) FlatDarkLaf.setup();
         else FlatLightLaf.setup();
         FlatLaf.updateUI();
     }

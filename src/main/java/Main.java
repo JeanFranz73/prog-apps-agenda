@@ -9,6 +9,6 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FlatLightLaf.setup();
         MainView tela = new MainView();
-        //LoginFrame frame = new LoginFrame();
+        // LoginFrame frame = new LoginFrame();
     }
 }
