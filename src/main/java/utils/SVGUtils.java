@@ -1,19 +1,3 @@
-/*
- * Copyright 2019 FormDev Software GmbH
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package utils;
 
 import java.awt.Color;
@@ -59,7 +43,7 @@ import com.kitfox.svg.SVGUniverse;
  *
  * @author Karl Tauber
  */
-public class FlatSVGIcon
+public class SVGUtils
 	extends ImageIcon
 	implements DisabledIconProvider
 {
@@ -91,14 +75,14 @@ public class FlatSVGIcon
 	 * in the tag {@code <svg>} are used as icon size.
 	 * <p>
 	 * If using Java modules, the package containing the icon must be opened in {@code module-info.java}.
-	 * Otherwise use {@link #FlatSVGIcon(URL)}.
+	 * Otherwise use {@link #SVGUtils(URL)}.
 	 * <p>
 	 * This is cheap operation because the icon is only loaded when used.
 	 *
 	 * @param name the name of the SVG resource (a '/'-separated path; e.g. {@code "com/myapp/myicon.svg"})
 	 * @see ClassLoader#getResource(String)
 	 */
-	public FlatSVGIcon( String name ) {
+	public SVGUtils(String name ) {
 		this( name, -1, -1, 1, false, null, null );
 	}
 
@@ -110,7 +94,7 @@ public class FlatSVGIcon
 	 * in the tag {@code <svg>} are used as icon size.
 	 * <p>
 	 * If using Java modules, the package containing the icon must be opened in {@code module-info.java}.
-	 * Otherwise use {@link #FlatSVGIcon(URL)}.
+	 * Otherwise use {@link #SVGUtils(URL)}.
 	 * <p>
 	 * This is cheap operation because the icon is only loaded when used.
 	 *
@@ -118,7 +102,7 @@ public class FlatSVGIcon
 	 * @param classLoader the class loader used to load the SVG resource
 	 * @see ClassLoader#getResource(String)
 	 */
-	public FlatSVGIcon( String name, ClassLoader classLoader ) {
+	public SVGUtils(String name, ClassLoader classLoader ) {
 		this( name, -1, -1, 1, false, classLoader, null );
 	}
 
@@ -128,7 +112,7 @@ public class FlatSVGIcon
 	 * The icon is scaled if the given size is different to the size specified in the SVG file.
 	 * <p>
 	 * If using Java modules, the package containing the icon must be opened in {@code module-info.java}.
-	 * Otherwise use {@link #FlatSVGIcon(URL)}.
+	 * Otherwise use {@link #SVGUtils(URL)}.
 	 * <p>
 	 * This is cheap operation because the icon is only loaded when used.
 	 *
@@ -137,7 +121,7 @@ public class FlatSVGIcon
 	 * @param height the height of the icon
 	 * @see ClassLoader#getResource(String)
 	 */
-	public FlatSVGIcon( String name, int width, int height ) {
+	public SVGUtils(String name, int width, int height ) {
 		this( name, width, height, 1, false, null, null );
 	}
 
@@ -148,7 +132,7 @@ public class FlatSVGIcon
 	 * The icon is scaled if the given size is different to the size specified in the SVG file.
 	 * <p>
 	 * If using Java modules, the package containing the icon must be opened in {@code module-info.java}.
-	 * Otherwise use {@link #FlatSVGIcon(URL)}.
+	 * Otherwise use {@link #SVGUtils(URL)}.
 	 * <p>
 	 * This is cheap operation because the icon is only loaded when used.
 	 *
@@ -158,7 +142,7 @@ public class FlatSVGIcon
 	 * @param classLoader the class loader used to load the SVG resource
 	 * @see ClassLoader#getResource(String)
 	 */
-	public FlatSVGIcon( String name, int width, int height, ClassLoader classLoader ) {
+	public SVGUtils(String name, int width, int height, ClassLoader classLoader ) {
 		this( name, width, height, 1, false, classLoader, null );
 	}
 
@@ -170,7 +154,7 @@ public class FlatSVGIcon
 	 * by the given scale factor.
 	 * <p>
 	 * If using Java modules, the package containing the icon must be opened in {@code module-info.java}.
-	 * Otherwise use {@link #FlatSVGIcon(URL)}.
+	 * Otherwise use {@link #SVGUtils(URL)}.
 	 * <p>
 	 * This is cheap operation because the icon is only loaded when used.
 	 *
@@ -178,7 +162,7 @@ public class FlatSVGIcon
 	 * @param scale the amount by which the icon size is scaled
 	 * @see ClassLoader#getResource(String)
 	 */
-	public FlatSVGIcon( String name, float scale ) {
+	public SVGUtils(String name, float scale ) {
 		this( name, -1, -1, scale, false, null, null );
 	}
 
@@ -191,7 +175,7 @@ public class FlatSVGIcon
 	 * by the given scale factor.
 	 * <p>
 	 * If using Java modules, the package containing the icon must be opened in {@code module-info.java}.
-	 * Otherwise use {@link #FlatSVGIcon(URL)}.
+	 * Otherwise use {@link #SVGUtils(URL)}.
 	 * <p>
 	 * This is cheap operation because the icon is only loaded when used.
 	 *
@@ -200,7 +184,7 @@ public class FlatSVGIcon
 	 * @param classLoader the class loader used to load the SVG resource
 	 * @see ClassLoader#getResource(String)
 	 */
-	public FlatSVGIcon( String name, float scale, ClassLoader classLoader ) {
+	public SVGUtils(String name, float scale, ClassLoader classLoader ) {
 		this( name, -1, -1, scale, false, classLoader, null );
 	}
 
@@ -220,7 +204,7 @@ public class FlatSVGIcon
 	 * @see ClassLoader#getResource(String)
 	 * @since 2
 	 */
-	public FlatSVGIcon( URL url ) {
+	public SVGUtils(URL url ) {
 		this( null, -1, -1, 1, false, null, url2uri( url ) );
 	}
 
@@ -236,7 +220,7 @@ public class FlatSVGIcon
 	 * @see ClassLoader#getResource(String)
 	 * @since 2
 	 */
-	public FlatSVGIcon( URI uri ) {
+	public SVGUtils(URI uri ) {
 		this( null, -1, -1, 1, false, null, uri );
 	}
 
@@ -251,7 +235,7 @@ public class FlatSVGIcon
 	 * @param file the SVG file
 	 * @since 2
 	 */
-	public FlatSVGIcon( File file ) {
+	public SVGUtils(File file ) {
 		this( null, -1, -1, 1, false, null, file.toURI() );
 	}
 
@@ -267,13 +251,13 @@ public class FlatSVGIcon
 	 * @throws IOException if an I/O exception occurs
 	 * @since 2
 	 */
-	public FlatSVGIcon( InputStream in ) throws IOException {
+	public SVGUtils(InputStream in ) throws IOException {
 		this( null, -1, -1, 1, false, null, loadFromStream( in ) );
 
 		// since the input stream is already loaded and parsed,
 		// get diagram here and remove it from cache
 		update();
-		synchronized( FlatSVGIcon.class ) {
+		synchronized( SVGUtils.class ) {
 			svgCache.remove( uri );
 		}
 	}
@@ -291,14 +275,14 @@ public class FlatSVGIcon
 	 *
 	 * @since 2.0.1
 	 */
-	public FlatSVGIcon( FlatSVGIcon icon ) {
+	public SVGUtils(SVGUtils icon ) {
 		this( icon.name, icon.width, icon.height, icon.scale, icon.disabled, icon.classLoader, icon.uri );
 		colorFilter = icon.colorFilter;
 		diagram = icon.diagram;
 		dark = icon.dark;
 	}
 
-	protected FlatSVGIcon( String name, int width, int height, float scale, boolean disabled, ClassLoader classLoader, URI uri ) {
+	protected SVGUtils(String name, int width, int height, float scale, boolean disabled, ClassLoader classLoader, URI uri ) {
 		this.name = name;
 		this.width = width;
 		this.height = height;
@@ -318,8 +302,8 @@ public class FlatSVGIcon
 	}
 
 	/**
-	 * Returns the custom icon width specified in {@link #FlatSVGIcon(String, int, int)},
-	 * {@link #FlatSVGIcon(String, int, int, ClassLoader)} or {@link #derive(int, int)}.
+	 * Returns the custom icon width specified in {@link #SVGUtils(String, int, int)},
+	 * {@link #SVGUtils(String, int, int, ClassLoader)} or {@link #derive(int, int)}.
 	 * Otherwise {@code -1} is returned.
 	 * <p>
 	 * To get the painted icon width, use {@link #getIconWidth()}.
@@ -331,8 +315,8 @@ public class FlatSVGIcon
 	}
 
 	/**
-	 * Returns the custom icon height specified in {@link #FlatSVGIcon(String, int, int)},
-	 * {@link #FlatSVGIcon(String, int, int, ClassLoader)} or {@link #derive(int, int)}.
+	 * Returns the custom icon height specified in {@link #SVGUtils(String, int, int)},
+	 * {@link #SVGUtils(String, int, int, ClassLoader)} or {@link #derive(int, int)}.
 	 * Otherwise {@code -1} is returned.
 	 * <p>
 	 * To get the painted icon height, use {@link #getIconHeight()}.
@@ -380,11 +364,11 @@ public class FlatSVGIcon
 	 * @param height the height of the new icon
 	 * @return a new icon
 	 */
-	public FlatSVGIcon derive( int width, int height ) {
+	public SVGUtils derive(int width, int height ) {
 		if( width == this.width && height == this.height )
 			return this;
 
-		FlatSVGIcon icon = new FlatSVGIcon( name, width, height, scale, disabled, classLoader, uri );
+		SVGUtils icon = new SVGUtils( name, width, height, scale, disabled, classLoader, uri );
 		icon.colorFilter = colorFilter;
 		icon.diagram = diagram;
 		icon.dark = dark;
@@ -399,11 +383,11 @@ public class FlatSVGIcon
 	 * @param scale the amount by which the icon size is scaled
 	 * @return a new icon
 	 */
-	public FlatSVGIcon derive( float scale ) {
+	public SVGUtils derive(float scale ) {
 		if( scale == this.scale )
 			return this;
 
-		FlatSVGIcon icon = new FlatSVGIcon( name, width, height, scale, disabled, classLoader, uri );
+		SVGUtils icon = new SVGUtils( name, width, height, scale, disabled, classLoader, uri );
 		icon.colorFilter = colorFilter;
 		icon.diagram = diagram;
 		icon.dark = dark;
@@ -422,7 +406,7 @@ public class FlatSVGIcon
 		if( disabled )
 			return this;
 
-		FlatSVGIcon icon = new FlatSVGIcon( name, width, height, scale, true, classLoader, uri );
+		SVGUtils icon = new SVGUtils( name, width, height, scale, true, classLoader, uri );
 		icon.colorFilter = colorFilter;
 		icon.diagram = diagram;
 		icon.dark = dark;
@@ -517,7 +501,7 @@ public class FlatSVGIcon
 			name = name.substring( 0, dotIndex ) + "_dark" + name.substring( dotIndex );
 		}
 
-		ClassLoader cl = (classLoader != null) ? classLoader : FlatSVGIcon.class.getClassLoader();
+		ClassLoader cl = (classLoader != null) ? classLoader : SVGUtils.class.getClassLoader();
 		return cl.getResource( name );
 	}
 
@@ -694,7 +678,7 @@ public class FlatSVGIcon
 	//---- class ColorFilter --------------------------------------------------
 
 	/**
-	 * A color filter that can modify colors of a painted {@link FlatSVGIcon}.
+	 * A color filter that can modify colors of a painted {@link SVGUtils}.
 	 * <p>
 	 * The ColorFilter modifies color in two ways.
 	 * Either using a color map, where specific colors are mapped to different ones.
@@ -702,7 +686,7 @@ public class FlatSVGIcon
 	 * <p>
 	 * When filtering a color, mappings are applied first, then the mapper function is applied.
 	 * <p>
-	 * Global {@link FlatSVGIcon} ColorFilter can be retrieved using the {@link ColorFilter#getInstance()} method.
+	 * Global {@link SVGUtils} ColorFilter can be retrieved using the {@link ColorFilter#getInstance()} method.
 	 */
 	public static class ColorFilter
 	{

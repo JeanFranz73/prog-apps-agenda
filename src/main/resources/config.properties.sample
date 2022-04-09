@@ -1,0 +1,6 @@
+# Database driver and URL
+dbUrl=jdbc:sql:localhost:3306
+# Database user
+dbUser=root
+# Database password
+dbPass=

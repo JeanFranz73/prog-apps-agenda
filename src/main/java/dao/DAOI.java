@@ -1,4 +1,4 @@
-package db;
+package dao;
 
 import java.util.*;
 
@@ -6,7 +6,7 @@ import java.util.*;
  * @author jean.franz
  */
 public interface DAOI<T> {
-    T get(String id);
+    T get(int id);
     void save(T t);
     boolean update(String id, T t);
     void delete(T t);

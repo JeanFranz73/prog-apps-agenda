@@ -3,6 +3,9 @@ package db;
 import java.sql.*;
 import java.util.Properties;
 
+/**
+ * @author jean.franz
+ */
 public class DB {
 
     private static DB instance;
@@ -23,13 +26,12 @@ public class DB {
             try {
                 prop.load(DB.class.getClassLoader().getResourceAsStream("config.properties"));
 
-                connection = DriverManager.getConnection(prop.getProperty("dbUrl"));
-                System.out.println("Sucesso na conex„o com o banco de dados!");
+                connection = DriverManager.getConnection(prop.getProperty("dbUrl"), prop.getProperty("dbUser"), null);
 
                 Statement stm = connection.createStatement();
 
             } catch (Exception e) {
-                System.err.println("Erro na conex„o do banco de dados");
+                System.err.println("Erro na conex√£o do banco de dados.");
                 e.printStackTrace();
             }
         } catch (Exception e) {

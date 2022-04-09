@@ -4,8 +4,12 @@ import lombok.Getter;
 
 @Getter
 public enum CargoEnum {
+    ADMIN(0, "Administrador"),
     ATENDENTE(1, "Atendente"),
-    MEDICO(2, "Médico");
+    MEDICO(2, "MÃ©dico"),
+    OFTALMOLOGISTA(3, "Oftalmolgista"),
+    GASTRO(4, "Gastroenterologia"),
+    OTORRINO(5, "Otorrinolaringologista");
 
     private final Integer id;
     private final String name;
@@ -22,4 +26,3 @@ public enum CargoEnum {
         return null;
     }
 }
-
