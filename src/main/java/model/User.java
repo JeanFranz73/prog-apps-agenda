@@ -15,5 +15,4 @@ public class User extends Model<User> {
     private String username;
     private Pessoa pessoa;
     private CargoEnum cargo;
-    private String password;
 }

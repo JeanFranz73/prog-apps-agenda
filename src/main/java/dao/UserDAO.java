@@ -53,7 +53,6 @@ public class UserDAO implements DAOI<User> {
                 user.getUsername(),
                 user.getPessoa().getId(),
                 user.getCargo().getId(),
-                user.getPassword());
 
         try {
 
@@ -124,9 +123,8 @@ public class UserDAO implements DAOI<User> {
                 String username = rs.getString("username");
                 Pessoa pessoa = pessoaDAO.get(rs.getInt("pessoa"));
                 CargoEnum cargo = CargoEnum.getById(rs.getInt("cargo"));
-                String password = rs.getString("password");
 
-                User user = new User(idUser, username, pessoa, cargo, password);
+                User user = new User(idUser, username, pessoa, cargo);
                 list.add(user);
             }
 

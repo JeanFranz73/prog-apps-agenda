@@ -3,7 +3,7 @@ package view;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
-import utils.FlatSVGIcon;
+import utils.SVGUtils;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -12,16 +12,15 @@ import java.awt.event.*;
 
 public class MainView extends JFrame {
 
-    private ListaAgendaView lista;
-    private ContatoView cadastro;
+    private ListaPessoasView lista;
+    private AddPessoaView cadastro;
     private EditarContatoView edit;
     private JTabbedPane pane;
     private JCheckBoxMenuItem modoEscuro;
 
     public MainView() {
-        changeTemaEscuro(false);
-        this.lista = new ListaAgendaView();
-        this.cadastro = new ContatoView();
+        this.lista = new ListaPessoasView();
+        this.cadastro = new AddPessoaView();
         this.edit = new EditarContatoView();
         this.pane = new JTabbedPane();
         initComponents();
@@ -31,9 +30,9 @@ public class MainView extends JFrame {
     private void initComponents() {
         addMenu();
         addListeners();
-        pane.addTab("Listar contatos", new FlatSVGIcon("icons/users.svg", 16, 16), lista.getRootPanel());
-        pane.addTab("Novo contato", new FlatSVGIcon("icons/user-plus.svg", 16, 16), cadastro.getRootPanel());
-        pane.addTab("Editar contato", new FlatSVGIcon("icons/edit.svg", 16, 16), edit.getRootPanel());
+        pane.addTab("Listar cadastros", new SVGUtils("icons/users.svg", 16, 16), lista.getRootPanel());
+        pane.addTab("Novo cadastro", new SVGUtils("icons/user-plus.svg", 16, 16), cadastro.getRootPanel());
+        pane.addTab("Editar cadastro", new SVGUtils("icons/edit.svg", 16, 16), edit.getRootPanel());
         pane.putClientProperty("JTabbedPane.tabWidthMode", "compact");
     }
 
@@ -53,9 +52,9 @@ public class MainView extends JFrame {
     }
 
     private void initUI() {
-        setIconImage(new FlatSVGIcon("icons/aperture.svg").getImage());
+        setIconImage(new SVGUtils("icons/aperture.svg").getImage());
 
-        setTitle("Consultório Clínico");
+        setTitle("ConsultÃ³rio ClÃ­nico");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(this.pane);
         setSize(1280, 720);
@@ -65,7 +64,7 @@ public class MainView extends JFrame {
 
     private void addMenu() {
         JMenuBar menu = new JMenuBar();
-        JMenu opcoesMenu = new JMenu("Opções");
+        JMenu opcoesMenu = new JMenu("OpÃ§Ãµes");
         modoEscuro = new JCheckBoxMenuItem("Modo escuro", false);
         opcoesMenu.add(modoEscuro);
         menu.add(opcoesMenu);

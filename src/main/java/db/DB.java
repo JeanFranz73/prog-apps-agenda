@@ -26,7 +26,7 @@ public class DB {
             try {
                 prop.load(DB.class.getClassLoader().getResourceAsStream("config.properties"));
 
-                connection = DriverManager.getConnection(prop.getProperty("dbUrl"), prop.getProperty("dbUser"), null);
+                connection = DriverManager.getConnection(prop.getProperty("dbUrl"), prop.getProperty("dbUser"), prop.getProperty("dbPass"));
 
                 Statement stm = connection.createStatement();
 

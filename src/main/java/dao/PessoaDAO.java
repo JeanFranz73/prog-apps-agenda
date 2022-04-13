@@ -28,8 +28,8 @@ public class PessoaDAO implements DAOI<Pessoa> {
 
             while (rs.next()) {
                 String nome = rs.getString("nome");
-                String cpf = rs.getString("cpf");
-                String telefone = rs.getString("telefone");
+                Long cpf = rs.getLong("cpf");
+                Long telefone = rs.getLong("telefone");
                 String email = rs.getString("email");
                 String endereco = rs.getString("endereco");
 
@@ -98,8 +98,8 @@ public class PessoaDAO implements DAOI<Pessoa> {
             while (rs.next()) {
                 Integer idPessoa = rs.getInt("id");
                 String nome = rs.getString("nome");
-                String cpf = rs.getString("cpf");
-                String telefone = rs.getString("telefone");
+                Long cpf = rs.getLong("cpf");
+                Long telefone = rs.getLong("telefone");
                 String email = rs.getString("email");
                 String endereco = rs.getString("endereco");
 

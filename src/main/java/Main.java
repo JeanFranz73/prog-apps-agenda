@@ -1,6 +1,6 @@
 
 import com.formdev.flatlaf.FlatLightLaf;
-import view.MainView;
+import view.PrincipalView;
 
 /**
  * @author jean.franz
@@ -8,7 +8,7 @@ import view.MainView;
 public class Main {
     public static void main(String[] args) {
         FlatLightLaf.setup();
-        MainView tela = new MainView();
-        // LoginFrame frame = new LoginFrame();
+
+        PrincipalView view = new PrincipalView();
     }
 }
