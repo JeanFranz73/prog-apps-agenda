@@ -11,7 +11,7 @@ import utils.CargoEnum;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User extends Model<User> {
-    private Integer id;
+    private Long id;
     private String username;
     private Pessoa pessoa;
     private CargoEnum cargo;

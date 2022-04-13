@@ -17,7 +17,7 @@ public class UserDAO implements DAOI<User> {
     private final String tableName = "users";
 
     @Override
-    public User get(int id) {
+    public User get(Long id) {
 
         String query = String.format("select * from %s where id = '%s';", tableName, id);
 
@@ -32,11 +32,10 @@ public class UserDAO implements DAOI<User> {
 
             if (rs.next()) {
                 String username = rs.getString("username");
-                Pessoa pessoa = pessoaDAO.get(rs.getInt("pessoa"));
+                Pessoa pessoa = pessoaDAO.get(rs.getLong("pessoa"));
                 CargoEnum cargo = CargoEnum.getById(rs.getInt("cargo"));
-                String password = rs.getString("password");
 
-                return new User(id, username, pessoa, cargo, password);
+                return new User(id, username, pessoa, cargo);
             }
 
         } catch (SQLException ex) {
@@ -47,26 +46,27 @@ public class UserDAO implements DAOI<User> {
     }
 
     @Override
-    public void save(User user) {
-        String query = String.format("insert into %s (username, pessoa, cargo, password) values %s, %s, %s, %s;",
+    public boolean save(User user) {
+        String query = String.format("insert into %s (username, pessoa, cargo) values %s, %s, %s;",
                 tableName,
                 user.getUsername(),
                 user.getPessoa().getId(),
-                user.getCargo().getId(),
+                user.getCargo().getId());
 
         try {
-
             PreparedStatement ps = DB.connect().prepareStatement(query);
 
             ps.executeUpdate();
 
+            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
+            return false;
         }
     }
 
     @Override
-    public boolean update(String id, User user) {
+    public boolean update(Long id, User user) {
 
         String query = String.format("update %s set (username = '%s', pessoa = '%s', cargo = '%s') where id = %s;",
                 tableName,
@@ -119,12 +119,12 @@ public class UserDAO implements DAOI<User> {
             ResultSet rs = ps.getResultSet();
 
             while (rs.next()) {
-                Integer idUser = rs.getInt("id");
+                Long id = rs.getLong("id");
                 String username = rs.getString("username");
-                Pessoa pessoa = pessoaDAO.get(rs.getInt("pessoa"));
+                Pessoa pessoa = pessoaDAO.get(rs.getLong("pessoa"));
                 CargoEnum cargo = CargoEnum.getById(rs.getInt("cargo"));
 
-                User user = new User(idUser, username, pessoa, cargo);
+                User user = new User(id, username, pessoa, cargo);
                 list.add(user);
             }
 

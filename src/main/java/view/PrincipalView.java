@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class PrincipalView extends JFrame {
     private ListaPessoasView listaCadastros;
-    private AddPessoaView cadastro;
+    private PessoaView cadastro;
     private EditarContatoView edit;
     private JTabbedPane pane;
     private JCheckBoxMenuItem modoEscuro;
@@ -23,13 +23,12 @@ public class PrincipalView extends JFrame {
     }
 
     private void initComponents() {
-        addToolBar();
         addMenu();
 
-        this.cadastro = new AddPessoaView();
-        pane.addTab("Agendamentos", new SVGUtils("icons/list.svg", 16, 16), cadastro.getRootPanel());
+//        this.cadastro = new PessoaView();
+//        pane.addTab("Agendamentos", new SVGUtils("icons/list.svg", 16, 16), cadastro.getRootPanel());
 
-        this.listaCadastros = new ListaPessoasView();
+        this.listaCadastros = new ListaPessoasView(this);
         pane.addTab("Cadastros", new SVGUtils("icons/users.svg", 16, 16), listaCadastros.getRootPanel());
 
         pane.putClientProperty("JTabbedPane.tabWidthMode", "compact");
@@ -53,12 +52,5 @@ public class PrincipalView extends JFrame {
         opcoesMenu.add(modoEscuro);
         menu.add(opcoesMenu);
         setJMenuBar(menu);
-    }
-
-    private void addToolBar() {
-        toolBar = new JToolBar();
-        toolBar.add(new JButton("Novo agendamento"));
-
-        this.add(toolBar, BorderLayout.NORTH);
     }
 }

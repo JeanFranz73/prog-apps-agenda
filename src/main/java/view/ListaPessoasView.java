@@ -18,12 +18,15 @@ public class ListaPessoasView {
     private DefaultTableModel model;
     private MaskFormatter cpfMask, numMask;
     private JButton deletarButton;
+    private JFrame parentFrame;
 
     @Getter
     private JPanel rootPanel;
+    private JButton editarButton;
 
-    public ListaPessoasView() {
+    public ListaPessoasView(JFrame frame) {
 
+        this.parentFrame = frame;
         this.dao = new PessoaDAO();
         this.model = (DefaultTableModel) tabelaPessoas.getModel();
 
@@ -37,6 +40,7 @@ public class ListaPessoasView {
 
     private void initComponents() {
         deletarButton.setIcon(new SVGUtils("icons/user-x.svg", 14, 14));
+        editarButton.setIcon(new SVGUtils("icons/edit.svg", 14, 14));
     }
 
     private void criarTabela() {
@@ -53,6 +57,7 @@ public class ListaPessoasView {
     public void loadContatos() {
 
         model.setRowCount(0);
+        model.isCellEditable(0, 0);
 
         Object[] contato = new Object[6];
         try {
@@ -77,6 +82,8 @@ public class ListaPessoasView {
     }
 
     private void ajustarTabela() {
+        tabelaPessoas.setDefaultEditor(Object.class, null);
+        tabelaPessoas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tabelaPessoas.getColumnModel().getColumn(0).setResizable(false);
         tabelaPessoas.getColumnModel().getColumn(0).setMaxWidth(30);
         tabelaPessoas.getColumnModel().getColumn(0).setPreferredWidth(30);
@@ -94,13 +101,29 @@ public class ListaPessoasView {
             public void actionPerformed(ActionEvent e) {
                 if (!tabelaPessoas.getSelectionModel().isSelectionEmpty()) {
                     if (JOptionPane.showConfirmDialog(getRootPanel(), "Você tem certeza que deseja excluir este cadastro?", "Confirmar exclusão", JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
-                        dao.delete(dao.get((Integer) tabelaPessoas.getValueAt(tabelaPessoas.getSelectedRow(), 0)));
+                        dao.delete(dao.get((Long) tabelaPessoas.getValueAt(tabelaPessoas.getSelectedRow(), 0)));
                         JOptionPane.showMessageDialog(getRootPanel(), "Cadastro excluído com sucesso.", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
                     }
                     loadContatos();
                 } else {
                     JOptionPane.showMessageDialog(getRootPanel(), "Selecione um contato.", "Alerta", JOptionPane.ERROR_MESSAGE);
                 }
+            }
+        });
+
+        editarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Pessoa pessoa = dao.get(Long.parseLong(tabelaPessoas.getValueAt(tabelaPessoas.getSelectedRow(), 0).toString()));
+
+                PessoaView pessoaView = new PessoaView(pessoa);
+
+                JDialog dialog = new JDialog(parentFrame, "Atualizar Cadastro de Pessoa", true);
+
+                dialog.add(pessoaView.getRootPanel());
+                dialog.pack();
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);
             }
         });
     }

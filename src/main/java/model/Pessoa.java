@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Pessoa extends Model<Pessoa> {
-    private int id;
+    private Long id;
     private String nome;
     private Long cpf;
     private Long telefone;

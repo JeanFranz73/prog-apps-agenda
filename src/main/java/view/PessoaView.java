@@ -1,40 +1,52 @@
 package view;
 
+import dao.PessoaDAO;
 import lombok.Getter;
-import model.Contato;
 import model.Pessoa;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddPessoaView {
-    private JTextField userField;
+public class PessoaView {
     private JTextField nomeField;
     private JTextField cpfField;
     private JTextField telefoneField;
+    private JTextField emailField;
+    private JTextField enderecoField;
     private JButton cadastraButton;
+    private PessoaDAO dao;
 
     @Getter
     private JPanel rootPanel;
-    private JTextField emailField;
-    private JTextField enderecoField;
+    private JButton atualizaButton;
 
-    public AddPessoaView() {
-
+    public PessoaView() {
         initComponents();
+        atualizaButton.setVisible(false);
+    }
+
+    public PessoaView(Pessoa pessoa) {
+        initComponents();
+        nomeField.setText(pessoa.getNome());
+        cpfField.setText(pessoa.getCpf().toString());
+        telefoneField.setText(pessoa.getTelefone().toString());
+        emailField.setText(pessoa.getEmail());
+        enderecoField.setText(pessoa.getEndereco());
+        cadastraButton.setVisible(false);
     }
 
     private void initComponents() {
+        this.dao = new PessoaDAO();
         createListeners();
     }
 
     private void createListeners() {
         cadastraButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Contato contato = new Contato(userField.getText(), nomeField.getText(), cpfField.getText(), telefoneField.getText());
+                Pessoa pessoa = new Pessoa(null, nomeField.getText(), Long.getLong(cpfField.getText()), Long.getLong(telefoneField.getText()), emailField.getText(), enderecoField.getText());
 
-                if (contato.cadastrarContato())
+                if (dao.save(pessoa))
                     JOptionPane.showMessageDialog(getRootPanel(), "Contato cadastrado com sucesso.", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
                 else
                     JOptionPane.showMessageDialog(getRootPanel(), "CPF inválido.", "Alerta", JOptionPane.ERROR_MESSAGE);
