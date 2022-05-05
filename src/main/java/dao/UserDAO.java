@@ -16,6 +16,17 @@ public class UserDAO implements DAOI<User> {
 
     private final String tableName = "users";
 
+    private static UserDAO instance;
+
+    private UserDAO() {}
+
+    public static UserDAO getInstance() {
+        if (instance == null) {
+            instance = new UserDAO();
+        }
+        return instance;
+    }
+
     @Override
     public User get(Long id) {
 
@@ -34,8 +45,9 @@ public class UserDAO implements DAOI<User> {
                 String username = rs.getString("username");
                 Pessoa pessoa = pessoaDAO.get(rs.getLong("pessoa"));
                 CargoEnum cargo = CargoEnum.getById(rs.getInt("cargo"));
+                String password = rs.getString("password");
 
-                return new User(id, username, pessoa, cargo);
+                return new User(id, username, pessoa, cargo, password);
             }
 
         } catch (SQLException ex) {
@@ -68,7 +80,7 @@ public class UserDAO implements DAOI<User> {
     @Override
     public boolean update(Long id, User user) {
 
-        String query = String.format("update %s set (username = '%s', pessoa = '%s', cargo = '%s') where id = %s;",
+        String query = String.format("update %s set (username = '%s', pessoa = '%s', cargo = '%s', password = '%s') where id = %s;",
                 tableName,
                 user.getUsername(),
                 user.getPessoa().getId(),
@@ -123,8 +135,9 @@ public class UserDAO implements DAOI<User> {
                 String username = rs.getString("username");
                 Pessoa pessoa = pessoaDAO.get(rs.getLong("pessoa"));
                 CargoEnum cargo = CargoEnum.getById(rs.getInt("cargo"));
+                String password = rs.getString("password");
 
-                User user = new User(id, username, pessoa, cargo);
+                User user = new User(id, username, pessoa, cargo, password);
                 list.add(user);
             }
 

@@ -1,6 +1,7 @@
 package view;
 
 import lombok.Getter;
+import utils.Validator;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -11,25 +12,28 @@ public class LoginView {
     private JPanel rootPanel;
     private JButton button1;
     private JPanel mainPanel;
+    private JTextField usernameField;
+    private JPasswordField passwordField;
 
     private LoginFrame loginFrame;
 
     public LoginView(JFrame frame) {
-
-        button1.putClientProperty( "Button.arc", 999 );
         loginFrame = (LoginFrame) frame;
         initComponents();
         addActions();
     }
 
-    private void initComponents() {
-    }
+    private void initComponents() {}
 
     private void addActions() {
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                loginFrame.dispose();
+                if (Validator.login(usernameField.getText(), passwordField.getPassword())) {
+                    PrincipalView view = new PrincipalView();
+
+                    loginFrame.dispose();
+                }
             }
         });
     }

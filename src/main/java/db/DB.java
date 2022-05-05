@@ -31,11 +31,11 @@ public class DB {
                 Statement stm = connection.createStatement();
 
             } catch (Exception e) {
-                System.err.println("Erro na conexão do banco de dados.");
+                System.err.println("Erro na conexão do banco de dados.\n");
                 e.printStackTrace();
             }
         } catch (Exception e) {
-            System.err.println("Erro na leitura do arquivo config.properties");
+            System.err.println("Erro na leitura do arquivo config.properties\n");
             e.printStackTrace();
         }
         return connection;

@@ -1,13 +1,15 @@
 
 import com.formdev.flatlaf.FlatLightLaf;
-import view.PrincipalView;
+import view.LoginFrame;
+import view.LoginView;
 
 /**
  * @author jean.franz
-*/
+ */
 public class Main {
     public static void main(String[] args) {
         FlatLightLaf.setup();
-        PrincipalView view = new PrincipalView();
+        LoginFrame view = new LoginFrame();
     }
+
 }

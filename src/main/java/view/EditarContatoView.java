@@ -4,7 +4,7 @@ import db.ContatoDAO;
 import lombok.Getter;
 import model.Contato;
 import utils.ComboItem;
-import utils.Valida;
+import utils.Validator;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -69,7 +69,7 @@ public class EditarContatoView {
         atualizaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (Valida.validarCPF(cpfField.getText()))
+                if (Validator.validarCPF(cpfField.getText()))
                     if (dao.update(Integer.toString(contatosBox.getSelectedIndex()), new Contato(userField.getText(), nomeField.getText(), cpfField.getText(), telefoneField.getText()))) {
                         contatosBox.removeItem(contatosBox.getSelectedIndex());
                         JOptionPane.showMessageDialog(getRootPanel(), "Contato editado com sucesso.", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);

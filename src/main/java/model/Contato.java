@@ -2,7 +2,7 @@ package model;
 
 import db.ContatoDAO;
 import lombok.*;
-import utils.Valida;
+import utils.Validator;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class Contato {
 
         boolean result = false;
 
-        if (Valida.validarCPF(getCpf())) {
+        if (Validator.validarCPF(getCpf())) {
             dao.save(this);
             result = true;
         }

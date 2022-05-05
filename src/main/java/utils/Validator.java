@@ -1,9 +1,19 @@
 package utils;
 
+import dao.UserDAO;
+import model.User;
+
+import javax.swing.*;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.util.Base64;
+import java.util.List;
+import java.util.Objects;
+
 /**
  * @author Vinicius
  */
-public class Valida {
+public class Validator {
     private static final int[] pesoCNPJ = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
 
     private static final int[] pesoCPF = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
@@ -57,5 +67,52 @@ public class Valida {
     public static boolean validarDataFormatada(String dataComFormato) {
         String[] data = dataComFormato.split("/");
         return (validarDataDMA(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])));
+    }
+
+    private static String encryptPass(String pass) {
+        try {
+            return Base64.getEncoder().encodeToString(
+                    MessageDigest.getInstance("SHA-512").digest(
+                            pass.getBytes(StandardCharsets.UTF_8)
+                    ));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static boolean login(String loginUser, char[] loginPassword) {
+
+        String pass = encryptPass(new String(loginPassword));
+
+        try {
+            if (loginUser.isEmpty() || pass.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
+                return false;
+            }
+
+            List<User> users = UserDAO.getInstance().getAll();
+
+            for (User user : users) {
+                if (user.getUsername().equals(loginUser)) {
+                    System.out.printf("usuário encontrado: %s; id %s\n", user.getUsername(), user.getId());
+                    if (validatePassword(user, pass)) {
+                        Config.setLoggedUser(user);
+                        return true;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao realizar login.");
+            e.printStackTrace();
+            return false;
+        }
+
+        JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos.");
+        return false;
+    }
+
+    private static boolean validatePassword(User user, String pass) {
+        return Objects.equals(pass, user.getPassword());
     }
 }

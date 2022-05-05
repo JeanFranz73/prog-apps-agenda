@@ -4,7 +4,6 @@ import lombok.Getter;
 import utils.SVGUtils;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class PrincipalView extends JFrame {
     private ListaPessoasView listaCadastros;
@@ -24,9 +23,6 @@ public class PrincipalView extends JFrame {
 
     private void initComponents() {
         addMenu();
-
-//        this.cadastro = new PessoaView();
-//        pane.addTab("Agendamentos", new SVGUtils("icons/list.svg", 16, 16), cadastro.getRootPanel());
 
         this.listaCadastros = new ListaPessoasView(this);
         pane.addTab("Cadastros", new SVGUtils("icons/users.svg", 16, 16), listaCadastros.getRootPanel());
