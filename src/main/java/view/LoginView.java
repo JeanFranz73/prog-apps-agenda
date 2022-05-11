@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 public class LoginView {
     @Getter
     private JPanel rootPanel;
-    private JButton button1;
+    private JButton loginButton;
     private JPanel mainPanel;
     private JTextField usernameField;
     private JPasswordField passwordField;
@@ -23,10 +23,13 @@ public class LoginView {
         addActions();
     }
 
-    private void initComponents() {}
+    private void initComponents() {
+        JRootPane rootPane = SwingUtilities.getRootPane(loginFrame);
+        rootPane.setDefaultButton(loginButton);
+    }
 
     private void addActions() {
-        button1.addActionListener(new ActionListener() {
+        loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (Validator.login(usernameField.getText(), passwordField.getPassword())) {

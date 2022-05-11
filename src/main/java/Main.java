@@ -1,7 +1,6 @@
 
 import com.formdev.flatlaf.FlatLightLaf;
 import view.LoginFrame;
-import view.LoginView;
 
 /**
  * @author jean.franz

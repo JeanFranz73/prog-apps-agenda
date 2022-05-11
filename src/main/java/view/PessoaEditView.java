@@ -1,5 +1,6 @@
 package view;
 
+import dao.DAOFactory;
 import dao.PessoaDAO;
 import lombok.Getter;
 import model.Pessoa;
@@ -8,7 +9,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PessoaView {
+public class PessoaEditView {
     private JTextField nomeField;
     private JTextField cpfField;
     private JTextField telefoneField;
@@ -21,12 +22,12 @@ public class PessoaView {
     private JPanel rootPanel;
     private JButton atualizaButton;
 
-    public PessoaView() {
+    public PessoaEditView() {
         initComponents();
         atualizaButton.setVisible(false);
     }
 
-    public PessoaView(Pessoa pessoa) {
+    public PessoaEditView(Pessoa pessoa) {
         initComponents();
         nomeField.setText(pessoa.getNome());
         cpfField.setText(pessoa.getCpf().toString());
@@ -37,7 +38,7 @@ public class PessoaView {
     }
 
     private void initComponents() {
-        this.dao = new PessoaDAO();
+        this.dao = DAOFactory.getPessoaDAO();
         createListeners();
     }
 

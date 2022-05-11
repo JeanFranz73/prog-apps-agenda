@@ -6,15 +6,15 @@ import java.util.Properties;
 /**
  * @author jean.franz
  */
-public class DB {
+public class MariaDBConnector {
 
-    private static DB instance;
+    private static MariaDBConnector instance;
 
-    private DB() {}
+    private MariaDBConnector() {}
 
-    public static DB getInstance() {
+    public static MariaDBConnector getInstance() {
         if (instance == null) {
-            new DB();
+            new MariaDBConnector();
         }
         return instance;
     }
@@ -24,7 +24,7 @@ public class DB {
         try {
             Properties prop = new Properties();
             try {
-                prop.load(DB.class.getClassLoader().getResourceAsStream("config.properties"));
+                prop.load(MariaDBConnector.class.getClassLoader().getResourceAsStream("config.properties"));
 
                 connection = DriverManager.getConnection(prop.getProperty("dbUrl"), prop.getProperty("dbUser"), prop.getProperty("dbPass"));
 

@@ -13,14 +13,14 @@ import java.awt.event.*;
 public class MainView extends JFrame {
 
     private ListaPessoasView lista;
-    private PessoaView cadastro;
+    private PessoaEditView cadastro;
     private EditarContatoView edit;
     private JTabbedPane pane;
     private JCheckBoxMenuItem modoEscuro;
 
     public MainView() {
         this.lista = new ListaPessoasView(this);
-        this.cadastro = new PessoaView();
+        this.cadastro = new PessoaEditView();
         this.edit = new EditarContatoView();
         this.pane = new JTabbedPane();
         initComponents();

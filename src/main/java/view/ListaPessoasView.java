@@ -1,5 +1,6 @@
 package view;
 
+import dao.DAOFactory;
 import dao.PessoaDAO;
 import lombok.Getter;
 import model.Pessoa;
@@ -27,7 +28,7 @@ public class ListaPessoasView {
     public ListaPessoasView(JFrame frame) {
 
         this.parentFrame = frame;
-        this.dao = new PessoaDAO();
+        this.dao = DAOFactory.getPessoaDAO();
         this.model = (DefaultTableModel) tabelaPessoas.getModel();
 
         initComponents();
@@ -87,11 +88,7 @@ public class ListaPessoasView {
         tabelaPessoas.getColumnModel().getColumn(0).setResizable(false);
         tabelaPessoas.getColumnModel().getColumn(0).setMaxWidth(30);
         tabelaPessoas.getColumnModel().getColumn(0).setPreferredWidth(30);
-        tabelaPessoas.getColumnModel().getColumn(2).setResizable(false);
-        tabelaPessoas.getColumnModel().getColumn(2).setMaxWidth(90);
         tabelaPessoas.getColumnModel().getColumn(2).setPreferredWidth(90);
-        tabelaPessoas.getColumnModel().getColumn(3).setResizable(false);
-        tabelaPessoas.getColumnModel().getColumn(3).setMaxWidth(90);
         tabelaPessoas.getColumnModel().getColumn(3).setPreferredWidth(90);
     }
 
@@ -116,11 +113,11 @@ public class ListaPessoasView {
             public void actionPerformed(ActionEvent e) {
                 Pessoa pessoa = dao.get(Long.parseLong(tabelaPessoas.getValueAt(tabelaPessoas.getSelectedRow(), 0).toString()));
 
-                PessoaView pessoaView = new PessoaView(pessoa);
+                PessoaEditView pessoaEditView = new PessoaEditView(pessoa);
 
                 JDialog dialog = new JDialog(parentFrame, "Atualizar Cadastro de Pessoa", true);
 
-                dialog.add(pessoaView.getRootPanel());
+                dialog.add(pessoaEditView.getRootPanel());
                 dialog.pack();
                 dialog.setLocationRelativeTo(null);
                 dialog.setVisible(true);

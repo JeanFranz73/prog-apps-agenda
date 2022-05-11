@@ -1,6 +1,6 @@
 package utils;
 
-import dao.UserDAO;
+import dao.DAOFactory;
 import model.User;
 
 import javax.swing.*;
@@ -91,7 +91,7 @@ public class Validator {
                 return false;
             }
 
-            List<User> users = UserDAO.getInstance().getAll();
+            List<User> users = DAOFactory.getUserDAO().getAll();
 
             for (User user : users) {
                 if (user.getUsername().equals(loginUser)) {

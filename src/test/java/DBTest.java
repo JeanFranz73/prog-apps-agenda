@@ -1,7 +1,4 @@
-import db.DB;
 import utils.CargoEnum;
-
-import java.sql.Connection;
 
 public class DBTest {
     public static void main(String[] args) throws Exception {

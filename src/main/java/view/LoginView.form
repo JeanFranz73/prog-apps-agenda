@@ -19,12 +19,12 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="6505b" class="javax.swing.JButton" binding="button1" default-binding="true">
+          <component id="6505b" class="javax.swing.JButton" binding="loginButton">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Button"/>
+              <text value="Login"/>
             </properties>
           </component>
           <component id="f8360" class="javax.swing.JTextField" binding="usernameField">
