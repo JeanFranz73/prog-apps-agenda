@@ -34,7 +34,6 @@ public class LoginView {
             public void actionPerformed(ActionEvent e) {
                 if (Validator.login(usernameField.getText(), passwordField.getPassword())) {
                     PrincipalView view = new PrincipalView();
-
                     loginFrame.dispose();
                 }
             }

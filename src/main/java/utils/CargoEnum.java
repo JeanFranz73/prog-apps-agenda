@@ -25,4 +25,9 @@ public enum CargoEnum {
         }
         return null;
     }
+
+    @Override
+    public String toString(){
+        return this.name;
+    }
 }

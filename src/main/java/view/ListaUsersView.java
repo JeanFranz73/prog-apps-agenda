@@ -97,7 +97,7 @@ public class ListaUsersView {
             public void actionPerformed(ActionEvent e) {
                 User user = dao.get(Long.parseLong(tabelaUsers.getValueAt(tabelaUsers.getSelectedRow(), 0).toString()));
 
-                PessoaEditView pessoaView = new PessoaEditView(user);
+                UserEditView pessoaView = new UserEditView(user);
 
                 JDialog dialog = new JDialog(parentFrame, "Atualizar Cadastro de Usuário", true);
 

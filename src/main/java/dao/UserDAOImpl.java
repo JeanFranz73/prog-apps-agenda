@@ -82,12 +82,11 @@ public class UserDAOImpl extends UserDAO {
     @Override
     public boolean update(Long id, User user) {
 
-        String query = String.format("update %s set (username = '%s', pessoa = '%s', cargo = '%s', password = '%s') where id = %s;",
+        String query = String.format("update %s set username = '%s', pessoa = '%s', cargo = '%s' where id = %d;",
                 tableName,
                 user.getUsername(),
                 user.getPessoa().getId(),
                 user.getCargo().getId(),
-                user.getPassword(),
                 id);
 
         try {
@@ -96,11 +95,12 @@ public class UserDAOImpl extends UserDAO {
 
             ps.executeUpdate();
 
+            return true;
+
         } catch (SQLException ex) {
             ex.printStackTrace();
+            return false;
         }
-
-        return false;
     }
 
     @Override

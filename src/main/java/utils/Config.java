@@ -13,7 +13,7 @@ public class Config {
     private static final String DB_USERNAME = "dbUser";
     private static final String DB_PASSWORD = "dbPass";
 
-    @Setter private static User loggedUser;
+    @Setter @Getter private static User loggedUser;
 
     private static Config instance;
 

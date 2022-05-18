@@ -1,12 +1,15 @@
 package dao;
 
+import utils.Config;
+
 public class DAOFactory {
 
-    public static final String sqlType = "sqlite";
+    private static final String sqlType = "sqlite";
 
     private static DAOFactory instance;
 
-    private DAOFactory() {}
+    private DAOFactory() {
+    }
 
     public static DAOFactory getInstance() {
         if (instance == null) {

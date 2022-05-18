@@ -16,4 +16,9 @@ public class Pessoa extends Model<Pessoa> {
     private Long telefone;
     private String email;
     private String endereco;
+
+    @Override
+    public String toString() {
+        return this.nome;
+    }
 }

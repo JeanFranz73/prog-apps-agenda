@@ -1,7 +1,9 @@
 package dao;
 
 import db.DBConnector;
+import model.Agendamento;
 import model.Pessoa;
+import model.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,25 +14,28 @@ import java.util.List;
 /**
  * @author jean.franz
  */
-public class PessoaDAOImpl extends PessoaDAO {
+public class AgendamentoDAOImpl extends AgendamentoDAO {
 
-    private final String tableName = "pessoas";
-    private static PessoaDAOImpl instance;
+    private final String tableName = "agendamentos";
+    private static AgendamentoDAOImpl instance;
 
-    private PessoaDAOImpl() {
+    private AgendamentoDAOImpl() {
     }
 
-    public static PessoaDAOImpl getInstance() {
+    public static AgendamentoDAOImpl getInstance() {
         if (instance == null) {
-            instance = new PessoaDAOImpl();
+            instance = new AgendamentoDAOImpl();
         }
         return instance;
     }
 
     @Override
-    public Pessoa get(Long id) {
+    public Agendamento get(Long id) {
 
         String query = String.format("select * from %s where id = '%s';", tableName, id);
+
+        PessoaDAO pessoaDAO = DAOFactory.getPessoaDAO();
+        UserDAO userDAO = DAOFactory.getUserDAO();
 
         try {
 
@@ -40,13 +45,14 @@ public class PessoaDAOImpl extends PessoaDAO {
             ResultSet rs = ps.getResultSet();
 
             while (rs.next()) {
-                String nome = rs.getString("nome");
-                Long cpf = rs.getLong("cpf");
-                Long telefone = rs.getLong("telefone");
-                String email = rs.getString("email");
-                String endereco = rs.getString("endereco");
+                User cadastrante = userDAO.get(rs.getLong("cadastrante"));
+                Pessoa paciente = pessoaDAO.get(rs.getLong("paciente"));
+                User medico = userDAO.get(rs.getLong("medico"));
+                String descricao = rs.getString("desc");
+                String horarioAgendado = rs.getString("data_marcada");
+                String dataRegistro = rs.getString("data_registro");
 
-                return new Pessoa(id, nome, cpf, telefone, email, endereco);
+                return new Agendamento(id, cadastrante, paciente, medico, descricao, horarioAgendado, dataRegistro);
             }
 
         } catch (SQLException ex) {
@@ -57,14 +63,14 @@ public class PessoaDAOImpl extends PessoaDAO {
     }
 
     @Override
-    public boolean save(Pessoa pessoa) {
-        String query = String.format("insert into %s (nome, cpf, telefone, email, endereco) values %s, %s, %s, %s, %s;",
+    public boolean save(Agendamento agendamento) {
+        String query = String.format("insert into %s (cadastrante, paciente, medico, desc, data_marcada) values %s, %s, %s, %s, %s;",
                 tableName,
-                pessoa.getNome(),
-                pessoa.getCpf(),
-                pessoa.getTelefone(),
-                pessoa.getEmail(),
-                pessoa.getEndereco());
+                agendamento.getCadastrante().getId(),
+                agendamento.getPaciente().getId(),
+                agendamento.getMedico().getId(),
+                agendamento.getDescricao(),
+                agendamento.getHorarioAgendado());
 
         try {
             PreparedStatement ps = DBConnector.connect().prepareStatement(query);
@@ -80,7 +86,7 @@ public class PessoaDAOImpl extends PessoaDAO {
     }
 
     @Override
-    public boolean update(Long id, Pessoa pessoa) {
+    public boolean update(Long id, Agendamento agendamento) {
         String query = String.format("update %s set nome = '%s', cpf = '%s', telefone = '%s', email = '%s', endereco = '%s' where id = %d;",
                 tableName,
                 pessoa.getNome(),
@@ -104,7 +110,7 @@ public class PessoaDAOImpl extends PessoaDAO {
     }
 
     @Override
-    public void delete(Pessoa pessoa) {
+    public void delete(Agendamento agendamento) {
         String query = String.format("delete from %s where id = '%s';", tableName, pessoa.getId());
 
         try {
@@ -119,8 +125,8 @@ public class PessoaDAOImpl extends PessoaDAO {
     }
 
     @Override
-    public List<Pessoa> getAll() {
-        List<Pessoa> list = new ArrayList<>();
+    public List<Agendamento> getAll() {
+        List<Agendamento> list = new ArrayList<>();
         String query = String.format("select * from %s;", tableName);
 
         try {
