@@ -26,6 +26,7 @@ public class UserEditView extends JFrame {
     private JButton atualizaButton;
     private JComboBox pessoaField;
     private JComboBox cargoField;
+    private JPasswordField senhaField;
 
     public UserEditView() {
         initComponents();
@@ -38,7 +39,7 @@ public class UserEditView extends JFrame {
         userId = user.getId();
 
         userField.setText(user.getUsername());
-        pessoaField.setSelectedItem(user.getPessoa().toString());
+        pessoaField.setSelectedItem(user.getPessoa().getClass());
         cargoField.setSelectedItem(user.getCargo());
 
         cadastraButton.setVisible(false);
@@ -46,6 +47,8 @@ public class UserEditView extends JFrame {
 
     private void initComponents() {
         this.dao = DAOFactory.getUserDAO();
+
+        setSize(500, 300);
 
         createListeners();
     }

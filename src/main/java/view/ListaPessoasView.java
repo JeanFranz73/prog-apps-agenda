@@ -24,6 +24,8 @@ public class ListaPessoasView {
     @Getter
     private JPanel rootPanel;
     private JButton editarButton;
+    private JButton addButton;
+    private JButton atualizarListaButton;
 
     public ListaPessoasView(JFrame frame) {
 
@@ -37,6 +39,7 @@ public class ListaPessoasView {
         tabelaPessoas.setModel(model);
 
         createListeners();
+
     }
 
     private void initComponents() {
@@ -121,6 +124,27 @@ public class ListaPessoasView {
                 dialog.pack();
                 dialog.setLocationRelativeTo(null);
                 dialog.setVisible(true);
+            }
+        });
+
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PessoaEditView pessoaEditView = new PessoaEditView();
+
+                JDialog dialog = new JDialog(parentFrame, "Adicionar Cadastro de Pessoa", true);
+
+                dialog.add(pessoaEditView.getRootPanel());
+                dialog.pack();
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);
+            }
+        });
+
+        atualizarListaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadContatos();
             }
         });
     }

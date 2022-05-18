@@ -4,8 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import model.User;
 
-import java.net.URL;
-import java.util.Properties;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.util.Base64;
 
 public class Config {
 
@@ -24,6 +25,22 @@ public class Config {
             instance = new Config();
         }
         return instance;
+    }
+
+    public static boolean isAdmin() {
+        return loggedUser.getCargo().equals(CargoEnum.ADMIN);
+    }
+
+    public static String encryptPass(String pass) {
+        try {
+            return Base64.getEncoder().encodeToString(
+                    MessageDigest.getInstance("SHA-512").digest(
+                            pass.getBytes(StandardCharsets.UTF_8)
+                    ));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

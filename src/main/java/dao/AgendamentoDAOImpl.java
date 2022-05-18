@@ -19,6 +19,9 @@ public class AgendamentoDAOImpl extends AgendamentoDAO {
     private final String tableName = "agendamentos";
     private static AgendamentoDAOImpl instance;
 
+    private PessoaDAO pessoaDAO;
+    private UserDAO userDAO;
+
     private AgendamentoDAOImpl() {
     }
 
@@ -34,8 +37,8 @@ public class AgendamentoDAOImpl extends AgendamentoDAO {
 
         String query = String.format("select * from %s where id = '%s';", tableName, id);
 
-        PessoaDAO pessoaDAO = DAOFactory.getPessoaDAO();
-        UserDAO userDAO = DAOFactory.getUserDAO();
+        pessoaDAO = DAOFactory.getPessoaDAO();
+        userDAO = DAOFactory.getUserDAO();
 
         try {
 
@@ -87,13 +90,13 @@ public class AgendamentoDAOImpl extends AgendamentoDAO {
 
     @Override
     public boolean update(Long id, Agendamento agendamento) {
-        String query = String.format("update %s set nome = '%s', cpf = '%s', telefone = '%s', email = '%s', endereco = '%s' where id = %d;",
+        String query = String.format("update %s set cadastrante = '%s', paciente = '%s', medico = '%s', desc = '%s', data_marcada = '%s' where id = %d;",
                 tableName,
-                pessoa.getNome(),
-                pessoa.getCpf(),
-                pessoa.getTelefone(),
-                pessoa.getEmail(),
-                pessoa.getEndereco(),
+                agendamento.getCadastrante().getId(),
+                agendamento.getPaciente().getId(),
+                agendamento.getMedico().getId(),
+                agendamento.getDescricao(),
+                agendamento.getHorarioAgendado(),
                 id);
 
         try {
@@ -111,7 +114,7 @@ public class AgendamentoDAOImpl extends AgendamentoDAO {
 
     @Override
     public void delete(Agendamento agendamento) {
-        String query = String.format("delete from %s where id = '%s';", tableName, pessoa.getId());
+        String query = String.format("delete from %s where id = '%s';", tableName, agendamento.getId());
 
         try {
 
@@ -138,14 +141,15 @@ public class AgendamentoDAOImpl extends AgendamentoDAO {
 
             while (rs.next()) {
                 Long id = rs.getLong("id");
-                String nome = rs.getString("nome");
-                Long cpf = rs.getLong("cpf");
-                Long telefone = rs.getLong("telefone");
-                String email = rs.getString("email");
-                String endereco = rs.getString("endereco");
+                User cadastrante = userDAO.get(rs.getLong("cadastrante"));
+                Pessoa paciente = pessoaDAO.get(rs.getLong("paciente"));
+                User medico = userDAO.get(rs.getLong("medico"));
+                String descricao = rs.getString("desc");
+                String horarioAgendado = rs.getString("data_marcada");
+                String dataRegistro = rs.getString("data_registro");
 
-                Pessoa pessoa = new Pessoa(id, nome, cpf, telefone, email, endereco);
-                list.add(pessoa);
+                Agendamento agendamento = new Agendamento(id, cadastrante, paciente, medico, descricao, horarioAgendado, dataRegistro);
+                list.add(agendamento);
             }
 
         } catch (SQLException ex) {

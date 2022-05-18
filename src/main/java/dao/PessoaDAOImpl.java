@@ -58,7 +58,7 @@ public class PessoaDAOImpl extends PessoaDAO {
 
     @Override
     public boolean save(Pessoa pessoa) {
-        String query = String.format("insert into %s (nome, cpf, telefone, email, endereco) values %s, %s, %s, %s, %s;",
+        String query = String.format("insert into %s (nome, cpf, telefone, email, endereco) values ('%s', '%s', '%s', '%s', '%s');",
                 tableName,
                 pessoa.getNome(),
                 pessoa.getCpf(),

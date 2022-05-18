@@ -15,8 +15,7 @@ public class DBConnector {
     private static Connection connection = null;
     private static Statement stm;
 
-    private DBConnector() {
-    }
+    private DBConnector() {}
 
     public static DBConnector getInstance() {
         if (instance == null) {
@@ -33,7 +32,7 @@ public class DBConnector {
                 stm = connection.createStatement();
 
             } catch (SQLException e) {
-                System.err.println("Erro aoconectar com o banco de dados.\n");
+                System.err.println("Erro ao conectar com o banco de dados.\n");
                 e.printStackTrace();
             }
         }

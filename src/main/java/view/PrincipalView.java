@@ -9,6 +9,7 @@ import javax.swing.*;
 public class PrincipalView extends JFrame {
     private ListaPessoasView listaPessoas;
     private ListaUsersView listaUsers;
+    private ListaAgendamentosView agendamentosView;
     private PessoaEditView cadastro;
     private JTabbedPane pane;
     private JCheckBoxMenuItem modoEscuro;
@@ -28,8 +29,11 @@ public class PrincipalView extends JFrame {
     private void initComponents() {
         addMenu();
 
+        this.agendamentosView = new ListaAgendamentosView(this);
         this.listaPessoas = new ListaPessoasView(this);
         this.listaUsers = new ListaUsersView(this);
+
+        pane.addTab("Agendamentos", new SVGUtils("icons/users.svg", 16, 16), listaUsers.getRootPanel());
         pane.addTab("Pessoas", new SVGUtils("icons/users.svg", 16, 16), listaPessoas.getRootPanel());
         pane.addTab("Usuários", new SVGUtils("icons/users.svg", 16, 16), listaUsers.getRootPanel());
 
@@ -41,7 +45,11 @@ public class PrincipalView extends JFrame {
 
         nameText.setText(String.format("Olá %s!", Config.getLoggedUser().getPessoa().getNome()));
 
-        setTitle("Consultório Clínico");
+        if (Config.isAdmin()) {
+            setTitle("Consultório Clínico - ADMIN MODE");
+        } else {
+            setTitle("Consultório Clínico");
+        }
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(this.rootPanel);
         setSize(1280, 720);

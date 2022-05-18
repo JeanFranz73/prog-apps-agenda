@@ -102,7 +102,7 @@ public class ListaUsersView {
                 JDialog dialog = new JDialog(parentFrame, "Atualizar Cadastro de Usuário", true);
 
                 dialog.add(pessoaView.getRootPanel());
-                dialog.pack();
+                dialog.setSize(300, 300);
                 dialog.setLocationRelativeTo(null);
                 dialog.setVisible(true);
             }

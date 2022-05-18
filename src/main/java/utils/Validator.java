@@ -69,25 +69,13 @@ public class Validator {
         return (validarDataDMA(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])));
     }
 
-    private static String encryptPass(String pass) {
-        try {
-            return Base64.getEncoder().encodeToString(
-                    MessageDigest.getInstance("SHA-512").digest(
-                            pass.getBytes(StandardCharsets.UTF_8)
-                    ));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     public static boolean login(String loginUser, char[] loginPassword) {
 
-        String pass = encryptPass(new String(loginPassword));
+        String pass = Config.encryptPass(new String(loginPassword));
 
         try {
             if (loginUser.isEmpty() || pass.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos.", "Alerta", JOptionPane.WARNING_MESSAGE);
                 return false;
             }
 
@@ -95,7 +83,7 @@ public class Validator {
 
             for (User user : users) {
                 if (user.getUsername().equals(loginUser)) {
-                    System.out.printf("usuário encontrado: %s; id %s\n", user.getUsername(), user.getId());
+                    // System.out.printf("usuário encontrado: %s; id %s\n", user.getUsername(), user.getId());
                     if (validatePassword(user, pass)) {
                         Config.setLoggedUser(user);
                         return true;
@@ -103,12 +91,12 @@ public class Validator {
                 }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao realizar login.");
+            JOptionPane.showMessageDialog(null, "Erro ao realizar login.", "Erro", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
             return false;
         }
 
-        JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos.");
+        JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos.", "Alerta", JOptionPane.WARNING_MESSAGE);
         return false;
     }
 

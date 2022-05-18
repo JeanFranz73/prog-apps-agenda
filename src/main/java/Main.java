@@ -10,5 +10,4 @@ public class Main {
         FlatLightLaf.setup();
         LoginFrame view = new LoginFrame();
     }
-
 }
