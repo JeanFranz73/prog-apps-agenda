@@ -34,6 +34,14 @@ public class DAOFactory {
         }
     }
 
+    public static AgendamentoDAO getAgendamentoDAO() {
+        if (isMariaDb()) {
+            return null;
+        } else {
+            return AgendamentoDAOImpl.getInstance();
+        }
+    }
+
     private static boolean isMariaDb() {
         return sqlType.equalsIgnoreCase("mariadb");
     }

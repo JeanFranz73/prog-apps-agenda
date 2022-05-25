@@ -63,7 +63,7 @@ public class UserEditView extends JFrame {
                     dispose();
                 }
                 else
-                    JOptionPane.showMessageDialog(getRootPanel(), "CPF inválido.", "Alerta", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(getRootPanel(), "Ocorreu um erro ao cadastrar.", "Alerta", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -76,7 +76,7 @@ public class UserEditView extends JFrame {
                     dispose();
                 }
                 else
-                    JOptionPane.showMessageDialog(getRootPanel(), "Informações inválidas.", "Alerta", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(getRootPanel(), "Ocorreu um erro ao atualizar o cadastro.", "Alerta", JOptionPane.ERROR_MESSAGE);
             }
         });
     }

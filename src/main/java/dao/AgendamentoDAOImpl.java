@@ -23,6 +23,8 @@ public class AgendamentoDAOImpl extends AgendamentoDAO {
     private UserDAO userDAO;
 
     private AgendamentoDAOImpl() {
+        this.userDAO = DAOFactory.getUserDAO();
+        this.pessoaDAO = DAOFactory.getPessoaDAO();
     }
 
     public static AgendamentoDAOImpl getInstance() {

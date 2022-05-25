@@ -25,7 +25,6 @@ public class ListaPessoasView {
     private JPanel rootPanel;
     private JButton editarButton;
     private JButton addButton;
-    private JButton atualizarListaButton;
 
     public ListaPessoasView(JFrame frame) {
 
@@ -43,6 +42,7 @@ public class ListaPessoasView {
     }
 
     private void initComponents() {
+        addButton.setIcon(new SVGUtils("icons/user-plus.svg", 14, 14));
         deletarButton.setIcon(new SVGUtils("icons/user-x.svg", 14, 14));
         editarButton.setIcon(new SVGUtils("icons/edit.svg", 14, 14));
     }
@@ -54,11 +54,11 @@ public class ListaPessoasView {
         model.addColumn("Telefone");
         model.addColumn("E-mail");
         model.addColumn("Endereço");
-        loadContatos();
+        loadPessoas();
         ajustarTabela();
     }
 
-    public void loadContatos() {
+    public void loadPessoas() {
 
         model.setRowCount(0);
         model.isCellEditable(0, 0);
@@ -104,7 +104,7 @@ public class ListaPessoasView {
                         dao.delete(dao.get((Long) tabelaPessoas.getValueAt(tabelaPessoas.getSelectedRow(), 0)));
                         JOptionPane.showMessageDialog(getRootPanel(), "Cadastro excluído com sucesso.", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
                     }
-                    loadContatos();
+                    loadPessoas();
                 } else {
                     JOptionPane.showMessageDialog(getRootPanel(), "Selecione um contato.", "Alerta", JOptionPane.ERROR_MESSAGE);
                 }
@@ -138,13 +138,6 @@ public class ListaPessoasView {
                 dialog.pack();
                 dialog.setLocationRelativeTo(null);
                 dialog.setVisible(true);
-            }
-        });
-
-        atualizarListaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                loadContatos();
             }
         });
     }

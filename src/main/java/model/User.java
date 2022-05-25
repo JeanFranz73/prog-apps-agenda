@@ -23,4 +23,8 @@ public class User extends Model<User> {
         this.pessoa = pessoa;
         this.cargo = cargo;
     }
+
+    public String toString() {
+        return this.getPessoa().getNome();
+    }
 }

@@ -1,8 +1,10 @@
 package view;
 
+import dao.AgendamentoDAO;
 import dao.DAOFactory;
 import dao.PessoaDAO;
 import lombok.Getter;
+import model.Agendamento;
 import model.Pessoa;
 import utils.SVGUtils;
 
@@ -12,7 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ListaAgendamentosView {
-    private PessoaDAO dao;
+    private AgendamentoDAO dao;
     private JTable tabelaAgendamentos;
     private DefaultTableModel model;
     private JButton cancelarButton;
@@ -25,7 +27,7 @@ public class ListaAgendamentosView {
     public ListaAgendamentosView(JFrame frame) {
 
         this.parentFrame = frame;
-        this.dao = DAOFactory.getPessoaDAO();
+        this.dao = DAOFactory.getAgendamentoDAO();
         this.model = (DefaultTableModel) tabelaAgendamentos.getModel();
 
         initComponents();
@@ -58,14 +60,14 @@ public class ListaAgendamentosView {
         model.isCellEditable(0, 0);
 
         Object[] contato = new Object[6];
-        for (Pessoa p : dao.getAll()) {
+        for (Agendamento a : dao.getAll()) {
 
-            contato[0] = p.getId();
-            contato[1] = p.getNome();
-            contato[2] = p.getCpf();
-            contato[3] = p.getTelefone();
-            contato[4] = p.getEmail();
-            contato[5] = p.getEndereco();
+            contato[0] = a.getId();
+            contato[1] = a.getCadastrante();
+            contato[2] = a.getPaciente();
+            contato[3] = a.getMedico();
+            contato[4] = a.getDescricao();
+            contato[5] = a.getHorarioAgendado();
 
             model.addRow(contato);
         }
@@ -100,11 +102,11 @@ public class ListaAgendamentosView {
         editarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Pessoa pessoa = dao.get(Long.parseLong(tabelaAgendamentos.getValueAt(tabelaAgendamentos.getSelectedRow(), 0).toString()));
+                Agendamento agendamento = dao.get(Long.parseLong(tabelaAgendamentos.getValueAt(tabelaAgendamentos.getSelectedRow(), 0).toString()));
 
-                PessoaEditView pessoaEditView = new PessoaEditView(pessoa);
+                PessoaEditView pessoaEditView = new PessoaEditView(null);
 
-                JDialog dialog = new JDialog(parentFrame, "Atualizar Cadastro de Pessoa", true);
+                JDialog dialog = new JDialog(parentFrame, "Editar agendamento", true);
 
                 dialog.add(pessoaEditView.getRootPanel());
                 dialog.pack();
