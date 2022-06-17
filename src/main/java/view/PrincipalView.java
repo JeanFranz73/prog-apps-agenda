@@ -11,8 +11,7 @@ import javax.swing.event.ChangeListener;
 public class PrincipalView extends JFrame {
     private ListaPessoasView listaPessoas;
     private ListaUsersView listaUsers;
-    private ListaAgendamentosView agendamentosView;
-    private PessoaEditView cadastro;
+    private ListaAgendamentosView listaAgendamentos;
     private JTabbedPane pane;
     private JCheckBoxMenuItem modoEscuro;
     private JToolBar toolBar;
@@ -24,8 +23,8 @@ public class PrincipalView extends JFrame {
     private JButton addAgendamentoButton;
 
     public PrincipalView() {
-        initComponents();
-        initUI();
+                initComponents();
+                initUI();
     }
 
     private void initComponents() {
@@ -34,8 +33,8 @@ public class PrincipalView extends JFrame {
         this.agendamentosView = new ListaAgendamentosView(this);
         this.listaPessoas = new ListaPessoasView(this);
         this.listaUsers = new ListaUsersView(this);
-
-        pane.addTab("Agendamentos", new SVGUtils("icons/list.svg", 16, 16), agendamentosView.getRootPanel());
+        this.listaAgendamentos = new ListaAgendamentosView(this);
+        pane.addTab("Agendamentos", new SVGUtils("icons/list.svg", 16, 16), listaAgendamentos.getRootPanel());
         pane.addTab("Pessoas", new SVGUtils("icons/users.svg", 16, 16), listaPessoas.getRootPanel());
         pane.addTab("Usuários", new SVGUtils("icons/users.svg", 16, 16), listaUsers.getRootPanel());
 

@@ -7,7 +7,11 @@ import model.Pessoa;
 import utils.SVGUtils;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.text.MaskFormatter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +22,8 @@ public class ListaPessoasView {
     private JTable tabelaPessoas;
     private DefaultTableModel model;
     private MaskFormatter cpfMask, numMask;
+
+    private TableRowSorter<TableModel> rowSorter;
     private JButton deletarButton;
     private JFrame parentFrame;
 
@@ -25,6 +31,8 @@ public class ListaPessoasView {
     private JPanel rootPanel;
     private JButton editarButton;
     private JButton addButton;
+    private JButton updateListaButton;
+    private JTextField pesquisaField;
 
     public ListaPessoasView(JFrame frame) {
 
@@ -42,6 +50,7 @@ public class ListaPessoasView {
     }
 
     private void initComponents() {
+        updateListaButton.setIcon(new SVGUtils("icons/refresh.svg", 14, 14));
         addButton.setIcon(new SVGUtils("icons/user-plus.svg", 14, 14));
         deletarButton.setIcon(new SVGUtils("icons/user-x.svg", 14, 14));
         editarButton.setIcon(new SVGUtils("icons/edit.svg", 14, 14));
@@ -83,6 +92,9 @@ public class ListaPessoasView {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        this.rowSorter = new TableRowSorter<>(tabelaPessoas.getModel());
+        this.tabelaPessoas.setRowSorter(rowSorter);
     }
 
     private void ajustarTabela() {
@@ -96,6 +108,27 @@ public class ListaPessoasView {
     }
 
     private void createListeners() {
+
+        updateListaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadContatos();
+            }
+        });
+
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PessoaEditView pessoaEditView = new PessoaEditView();
+
+                JDialog dialog = new JDialog(parentFrame, "Cadastrar Pessoa", true);
+
+                dialog.add(pessoaEditView.getRootPanel());
+                dialog.pack();
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);
+            }
+        });
         deletarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -127,18 +160,35 @@ public class ListaPessoasView {
             }
         });
 
-        addButton.addActionListener(new ActionListener() {
+        pesquisaField.getDocument().addDocumentListener(new DocumentListener(){
+
             @Override
-            public void actionPerformed(ActionEvent e) {
-                PessoaEditView pessoaEditView = new PessoaEditView();
+            public void insertUpdate(DocumentEvent e) {
+                String text = pesquisaField.getText();
 
-                JDialog dialog = new JDialog(parentFrame, "Adicionar Cadastro de Pessoa", true);
-
-                dialog.add(pessoaEditView.getRootPanel());
-                dialog.pack();
-                dialog.setLocationRelativeTo(null);
-                dialog.setVisible(true);
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
             }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                String text = pesquisaField.getText();
+
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
         });
     }
 }

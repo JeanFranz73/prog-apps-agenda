@@ -7,6 +7,7 @@ import lombok.Getter;
 import model.Pessoa;
 import model.User;
 import utils.CargoEnum;
+import utils.Validator;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -28,6 +29,9 @@ public class UserEditView extends JFrame {
     private JComboBox cargoField;
     private JPasswordField senhaField;
 
+    private JPasswordField passwordField;
+    private JPanel campoSenha;
+
     public UserEditView() {
         initComponents();
         atualizaButton.setVisible(false);
@@ -39,10 +43,10 @@ public class UserEditView extends JFrame {
         userId = user.getId();
 
         userField.setText(user.getUsername());
-        pessoaField.setSelectedItem(user.getPessoa().getClass());
         cargoField.setSelectedItem(user.getCargo());
-
+        pessoaField.setSelectedItem(user.getPessoa().toString());
         cadastraButton.setVisible(false);
+        campoSenha.setVisible(false);
     }
 
     private void initComponents() {
@@ -56,7 +60,7 @@ public class UserEditView extends JFrame {
     private void createListeners() {
         cadastraButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                User user = new User(null, userField.getText(), (Pessoa) pessoaField.getSelectedItem(), (CargoEnum) cargoField.getSelectedItem());
+                User user = new User(null, userField.getText(), (Pessoa) pessoaField.getSelectedItem(), (CargoEnum) cargoField.getSelectedItem(), Validator.encryptPass(new String(passwordField.getPassword())));
 
                 if (dao.save(user)) {
                     JOptionPane.showMessageDialog(getRootPanel(), "Usuário cadastrado com sucesso.", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);

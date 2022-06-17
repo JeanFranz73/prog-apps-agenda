@@ -1,7 +1,4 @@
 package dao;
-
-import utils.Config;
-
 public class DAOFactory {
 
     private static final String sqlType = "sqlite";
@@ -43,7 +40,7 @@ public class DAOFactory {
     }
 
     private static boolean isMariaDb() {
-        return sqlType.equalsIgnoreCase("mariadb");
+        return false;
     }
 
 }

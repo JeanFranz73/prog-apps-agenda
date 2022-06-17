@@ -1,9 +1,6 @@
 package db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * @author jean.franz
@@ -25,17 +22,18 @@ public class DBConnector {
     }
 
     public static Connection connect() {
+
         if (connection == null) {
-            try {
-                connection = DriverManager.getConnection("jdbc:sqlite:banco.db", "root", "password");
+                try {
+                    connection = DriverManager.getConnection("jdbc:sqlite:banco.db", "root", "password");
 
-                stm = connection.createStatement();
+                    stm = connection.createStatement();
 
-            } catch (SQLException e) {
-                System.err.println("Erro ao conectar com o banco de dados.\n");
-                e.printStackTrace();
+                } catch (SQLException e) {
+                    System.err.println("Erro ao conectar com o banco de dados.\n");
+                    e.printStackTrace();
+                }
             }
-        }
         return connection;
     }
 }

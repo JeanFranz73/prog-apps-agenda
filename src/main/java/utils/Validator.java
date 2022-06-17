@@ -69,6 +69,18 @@ public class Validator {
         return (validarDataDMA(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])));
     }
 
+    public static String encryptPass(String pass) {
+        try {
+            return Base64.getEncoder().encodeToString(
+                    MessageDigest.getInstance("SHA-512").digest(
+                            pass.getBytes(StandardCharsets.UTF_8)
+                    ));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static boolean login(String loginUser, char[] loginPassword) {
 
         String pass = Config.encryptPass(new String(loginPassword));

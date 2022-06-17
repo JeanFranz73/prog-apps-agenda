@@ -17,7 +17,7 @@ public class ListaAgendamentosView {
     private AgendamentoDAO dao;
     private JTable tabelaAgendamentos;
     private DefaultTableModel model;
-    private JButton cancelarButton;
+    private JButton deletarButton;
     private JFrame parentFrame;
 
     @Getter
@@ -79,8 +79,6 @@ public class ListaAgendamentosView {
         tabelaAgendamentos.getColumnModel().getColumn(0).setResizable(false);
         tabelaAgendamentos.getColumnModel().getColumn(0).setMaxWidth(30);
         tabelaAgendamentos.getColumnModel().getColumn(0).setPreferredWidth(30);
-        tabelaAgendamentos.getColumnModel().getColumn(2).setPreferredWidth(90);
-        tabelaAgendamentos.getColumnModel().getColumn(3).setPreferredWidth(90);
     }
 
     private void createListeners() {

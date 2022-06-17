@@ -66,6 +66,7 @@ public class PessoaDAOImpl extends PessoaDAO {
                 pessoa.getEmail(),
                 pessoa.getEndereco());
 
+        System.out.println(query);
         try {
             PreparedStatement ps = DBConnector.connect().prepareStatement(query);
 

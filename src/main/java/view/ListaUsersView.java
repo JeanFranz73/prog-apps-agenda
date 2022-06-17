@@ -7,7 +7,11 @@ import utils.Config;
 import utils.SVGUtils;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.text.MaskFormatter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,12 +21,16 @@ public class ListaUsersView {
     private JTable tabelaUsers;
     private DefaultTableModel model;
     private MaskFormatter cpfMask, numMask;
+
+    private TableRowSorter<TableModel> rowSorter;
     private JButton deletarButton;
     private JFrame parentFrame;
 
     @Getter
     private JPanel rootPanel;
     private JButton editarButton;
+    private JTextField pesquisaField;
+    private JButton updateListaButton;
     private JButton addButton;
 
     public ListaUsersView(JFrame frame) {
@@ -37,9 +45,11 @@ public class ListaUsersView {
         tabelaUsers.setModel(model);
 
         createListeners();
+
     }
 
     private void initComponents() {
+        updateListaButton.setIcon(new SVGUtils("icons/refresh.svg", 14, 14));
         addButton.setIcon(new SVGUtils("icons/user-plus.svg", 14, 14));
         deletarButton.setIcon(new SVGUtils("icons/user-x.svg", 14, 14));
         editarButton.setIcon(new SVGUtils("icons/edit.svg", 14, 14));
@@ -73,6 +83,8 @@ public class ListaUsersView {
 
             model.addRow(contato);
         }
+        this.rowSorter = new TableRowSorter<>(tabelaUsers.getModel());
+        this.tabelaUsers.setRowSorter(rowSorter);
     }
 
     private void ajustarTabela() {
@@ -84,6 +96,27 @@ public class ListaUsersView {
     }
 
     private void createListeners() {
+
+        updateListaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadContatos();
+            }
+        });
+
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UserEditView pessoaView = new UserEditView();
+
+                JDialog dialog = new JDialog(parentFrame, "Adicionar Usuário", true);
+
+                dialog.add(pessoaView.getRootPanel());
+                dialog.pack();
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);
+            }
+        });
         deletarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -132,6 +165,37 @@ public class ListaUsersView {
                 dialog.setLocationRelativeTo(null);
                 dialog.setVisible(true);
             }
+        });
+
+        pesquisaField.getDocument().addDocumentListener(new DocumentListener(){
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                String text = pesquisaField.getText();
+
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                String text = pesquisaField.getText();
+
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
         });
     }
 }
