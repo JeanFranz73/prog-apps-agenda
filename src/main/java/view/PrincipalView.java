@@ -30,20 +30,16 @@ public class PrincipalView extends JFrame {
     private void initComponents() {
         addMenu();
 
-        this.agendamentosView = new ListaAgendamentosView(this);
+        this.listaAgendamentos = new ListaAgendamentosView(this);
         this.listaPessoas = new ListaPessoasView(this);
         this.listaUsers = new ListaUsersView(this);
-        this.listaAgendamentos = new ListaAgendamentosView(this);
         pane.addTab("Agendamentos", new SVGUtils("icons/list.svg", 16, 16), listaAgendamentos.getRootPanel());
         pane.addTab("Pessoas", new SVGUtils("icons/users.svg", 16, 16), listaPessoas.getRootPanel());
         pane.addTab("Usuários", new SVGUtils("icons/users.svg", 16, 16), listaUsers.getRootPanel());
 
-        // pane.putClientProperty("JTabbedPane.tabWidthMode", "compact");
-
         pane.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                System.out.println("mudou");
-                agendamentosView.loadAgendamentos();
+                listaAgendamentos.loadAgendamentos();
                 listaPessoas.loadPessoas();
                 listaUsers.loadUsers();
             }

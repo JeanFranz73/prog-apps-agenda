@@ -39,7 +39,7 @@ public class ListaAgendamentosView {
     }
 
     private void initComponents() {
-        cancelarButton.setIcon(new SVGUtils("icons/user-x.svg", 14, 14));
+        deletarButton.setIcon(new SVGUtils("icons/user-x.svg", 14, 14));
         editarButton.setIcon(new SVGUtils("icons/edit.svg", 14, 14));
     }
 
@@ -82,7 +82,7 @@ public class ListaAgendamentosView {
     }
 
     private void createListeners() {
-        cancelarButton.addActionListener(new ActionListener() {
+        deletarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!tabelaAgendamentos.getSelectionModel().isSelectionEmpty()) {

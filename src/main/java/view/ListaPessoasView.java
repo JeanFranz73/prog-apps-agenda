@@ -112,7 +112,7 @@ public class ListaPessoasView {
         updateListaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                loadContatos();
+                loadPessoas();
             }
         });
 

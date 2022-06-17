@@ -100,7 +100,7 @@ public class ListaUsersView {
         updateListaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                loadContatos();
+                loadUsers();
             }
         });
 
